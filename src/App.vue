@@ -3,9 +3,14 @@
     <input  
       @keydown.down.prevent ="$refs.thisSelection.onDown()"
       @keydown.up.prevent   ="$refs.thisSelection.onUp()"
-      :value="selectedSample.name"
+      :value="selectedSample01.name"
     >
-    <list-selection :Items="samples" Property="name" :VisibleItems='12' @selected="that => this.selectedSample = that" ref="thisSelection"></list-selection>
+    <list-selection :Items="samples" Property="name" :VisibleItems='10' @selected="that => this.selectedSample01 = that" ref="thisSelection"></list-selection>
+    
+    <hr>
+
+    <p>{{ selectedSample02.name }}</p>
+    <list-selection :Items="samples" Property="name" :VisibleItems='12' :isSelectable="true"  @selected="that => this.selectedSample02 = that"></list-selection>
   </div>
 </template>
 
@@ -23,7 +28,8 @@ export default {
   },
   data() {
     return {
-      selectedSample: '',
+      selectedSample01: { name: '-' },
+      selectedSample02: { name: '-' },
       samples: SampleData
     }
   }
