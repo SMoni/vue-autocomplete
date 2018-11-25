@@ -1,24 +1,24 @@
 <template>
-  <div>
-    <div class="list-selection"
-      :tabindex="isSelectable ? 0 : false"
-      @keydown.down.prevent ="onDown"
-      @keydown.up.prevent   ="onUp"
+  <div class="list-selection"
+    :tabindex="isSelectable ? 0 : false"
+    @keydown.down.prevent ="onDown"
+    @keydown.up.prevent   ="onUp"
+  >
+    <div v-for="(item, index) in Items" 
+      :key="index"
+      :class="[{ active: index === currentIndex }, 'item', `item-${index}` ]"
+      @click="onClick(index)"
     >
-      <div v-for="(item, index) in Items" 
-        :key="index"
-        :class="[{ active: index === currentIndex }, 'item', `item-${index}` ]"
-        @click="onClick(index)"
-      >
-        {{ item[Property] }}
-      </div>
+      {{ item[Property] }}
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
+
 export default {
-  name: 'autocomplete-data',
+  name: 'list-selection',
   props: {
     Items: {
       type: Array,
@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     listElement: function() {
-      return this.$el.querySelector('.list-selection');
+      return this.$el;
     },
     currentElement: function() {
       return this.$el.querySelector(`.item-${this.currentIndex}`);
@@ -86,7 +86,7 @@ export default {
     }
   },
   mounted() {
-    this.listElement.style.height = `${this.VisibleItems * this.currentElement.getBoundingClientRect().height}px`
+    this.listElement.style.height = `${this.VisibleItems * this.currentElement.getBoundingClientRect().height}px`;
   },
   data() {
     return {
@@ -97,8 +97,10 @@ export default {
 </script>
 
 <style scoped>
+
 .list-selection {
-  overflow-y: scroll;
+  overflow-y: auto;
   position:   relative;
 }
+
 </style>

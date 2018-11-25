@@ -1,35 +1,32 @@
 <template>
   <div id="app">
-    <input  
-      @keydown.down.prevent ="$refs.thisSelection.onDown()"
-      @keydown.up.prevent   ="$refs.thisSelection.onUp()"
-      :value="selectedSample01.name"
-    >
-    <list-selection :Items="samples" Property="name" :VisibleItems='10' @selected="that => this.selectedSample01 = that" ref="thisSelection"></list-selection>
-    
+    <!-- <list-selection :Items="samples" Property="name" :VisibleItems='5' :isSelectable="true"  @selected="that => this.selectedSample = that"></list-selection>
+    <p>{{ selectedSample.name }}</p> -->
     <hr>
+    <input-autocomplete :Items="samples" Property="name" :VisibleItems='10'></input-autocomplete>
 
-    <p>{{ selectedSample02.name }}</p>
-    <list-selection :Items="samples" Property="name" :VisibleItems='12' :isSelectable="true"  @selected="that => this.selectedSample02 = that"></list-selection>
+    <hr>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import 'normalize.css'
 
-import ListSelection from '@/components/list-selection'
+import ListSelection     from '@/components/list-selection'
+import InputAutocomplete from '@/components/input-autocomplete'
 
 import SampleData from '@/assets/sample-data.json'
 
 export default {
   name: 'app',
   components: {
-    ListSelection
+    ListSelection,
+    InputAutocomplete
   },
   data() {
     return {
-      selectedSample01: { name: '-' },
-      selectedSample02: { name: '-' },
+      selectedSample: { name: '-' },
       samples: SampleData
     }
   }
