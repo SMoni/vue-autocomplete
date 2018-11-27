@@ -36,6 +36,7 @@ export default {
 <style lang="less">
 
 body {
+
   font-family: Arial, Helvetica, sans-serif;
   padding: 2rem;
 
@@ -55,6 +56,13 @@ body {
         background-color: DodgerBlue !important; 
         color: #ffffff; 
       }
+    }
+  }
+
+  .input-autocomplete {
+
+    .items {
+      box-shadow: 5px 10px 8px #888888;
     }
   }
 }

@@ -22,7 +22,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ListSelection from '@/components/list-selection'
 
 export default {

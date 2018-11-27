@@ -15,7 +15,6 @@
 
 <script>
 /* eslint-disable */
-
 export default {
   name: 'list-selection',
   props: {
@@ -50,9 +49,18 @@ export default {
   watch: {
     currentIndex: function(newValue) {
       this.$emit('selected', this.Items[newValue]);
+    },
+    Items: function() {
+      this.setListHeight();
     }
   },
   methods: {
+    setListHeight: function() {
+
+      const maxItems = this.VisibleItems < this.Items.length ? this.VisibleItems : this.Items.length;
+
+      this.listElement.style.height = `${maxItems * this.heightOfElement}px`;
+    },
     onDown: function() {
       this.currentIndex = (this.currentIndex + 1) % this.Items.length;
 
@@ -89,21 +97,29 @@ export default {
     }
   },
   mounted() {
-    this.listElement.style.height = `${this.VisibleItems * this.currentElement.getBoundingClientRect().height}px`;
+
+    this.heightOfElement = this.currentElement.getBoundingClientRect().height;
+
+    this.setListHeight();
   },
   data() {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      heightOfElement: 0
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
 .list-selection {
+
   overflow-y: auto;
   position:   relative;
-}
 
+  .item {
+    cursor: pointer;
+  }
+}
 </style>
+
