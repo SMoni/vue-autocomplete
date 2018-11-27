@@ -1,17 +1,28 @@
 <template>
   <div class="input-autocomplete">
     <input class="input"
-      @keydown.down.prevent ="$refs.thisSelection.onDown()"
-      @keydown.up.prevent   ="$refs.thisSelection.onUp()"
-      @input                ="onInputSet($event.target.value)"
+      @keydown.down.prevent  ="onDown()"
+      @keydown.up.prevent    ="onUp()"
+      @keydown.enter.prevent ="onEnter()"
+      @keydown.esc.prevent   ="onEsc()"
+      @input                 ="onInputSet($event.target.value)"
+      :value                 ="filter"
+
     >
     <div class="items" v-show="showList">
-      <list-selection  :Items="filtered" Property="name" :VisibleItems='VisibleItems' ref="thisSelection"></list-selection>
+      <list-selection 
+        :Items="filtered"
+        Property="name"
+        :VisibleItems='VisibleItems'
+        ref="thisSelection"
+        @clicked="value => onClicked(value)"
+      ></list-selection>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import ListSelection from '@/components/list-selection'
 
 export default {
@@ -42,10 +53,27 @@ export default {
     }
   },
   methods: {
-    onInputSet(value) {
+    onDown: function() {
+      this.showList = true;
+      this.$refs.thisSelection.onDown();
+    },
+    onUp: function() {
+      this.$refs.thisSelection.onUp();
+    },
+    onEnter: function() {
+      this.$refs.thisSelection.onClick();
+    },
+    onEsc: function() {
+      this.showList = false;
+    },
+    onInputSet: function(value) {
       this.filter   = value;
-      this.showList = value !== '';
-    }      
+      this.showList = value !== '' && this.filtered.length > 0;
+    },
+    onClicked: function(value) {
+      this.showList = false;
+      this.filter   = value[this.Property];
+    }
   },
   mounted() {
     /* Hack

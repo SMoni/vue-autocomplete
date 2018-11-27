@@ -1,6 +1,5 @@
 <template>
   <div class="list-selection"
-    :tabindex="isSelectable ? 0 : false"
     @keydown.down.prevent ="onDown"
     @keydown.up.prevent   ="onUp"
   >
@@ -82,7 +81,11 @@ export default {
       }      
     },
     onClick: function(index) {
-      this.currentIndex = index;
+      
+      if(index)
+        this.currentIndex = index;
+
+      this.$emit('clicked', this.Items[this.currentIndex]);
     }
   },
   mounted() {
