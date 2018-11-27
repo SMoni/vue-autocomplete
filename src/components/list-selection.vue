@@ -14,7 +14,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   name: 'list-selection',
   props: {
