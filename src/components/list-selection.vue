@@ -41,6 +41,12 @@ export default {
     },
     currentElement: function() {
       return this.$el.querySelector(`.item-${this.currentIndex}`);
+    },
+    shownItems: function() {
+
+      const numberOfItems = this.Items.length;
+
+      return this.VisibleItems < numberOfItems ? this.VisibleItems : numberOfItems;
     }
   },
   watch: {
@@ -53,11 +59,8 @@ export default {
     }
   },
   methods: {
-    setListHeightFor: function(numberOfItems) {
-
-      const shownItems = this.VisibleItems < numberOfItems ? this.VisibleItems : numberOfItems;
-
-      this.listElement.style.height = `${shownItems * this.heightOfItemElement}px`;
+    setListHeightFor: function() {
+      this.listElement.style.height = `${this.shownItems * this.heightOfItemElement}px`;
     },
     onDown: function() {
       this.currentIndex = (this.currentIndex + 1) % this.Items.length;
@@ -98,7 +101,7 @@ export default {
 
     this.heightOfItemElement = this.currentElement.getBoundingClientRect().height;
 
-    this.setListHeightFor(this.VisibleItems);
+    this.setListHeightFor();
   },
   data() {
     return {

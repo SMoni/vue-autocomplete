@@ -12,7 +12,7 @@
     <div class="items" v-show="showList">
       <list-selection 
         :Items="filtered"
-        Property="name"
+        :Property="Property"
         :VisibleItems='VisibleItems'
         ref="thisSelection"
         @selected="onSelected"
@@ -83,7 +83,6 @@ export default {
       element is displayed.
     */
     this.showList = false;
-
   },
   data() {
     return {
