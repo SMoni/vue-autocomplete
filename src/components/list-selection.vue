@@ -1,8 +1,5 @@
 <template>
-  <div class="list-selection"
-    @keydown.down.prevent ="onDown"
-    @keydown.up.prevent   ="onUp"
-  >
+  <div class="list-selection">
     <div v-for="(item, index) in Items" 
       :key="index"
       :class="[{ active: index === currentIndex }, 'item', `item-${index}` ]"
@@ -14,6 +11,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'list-selection',
   props: {
@@ -47,18 +45,19 @@ export default {
   },
   watch: {
     currentIndex: function(newValue) {
-      this.$emit('selected', this.Items[newValue]);
+      this.$emit('changed', this.Items[newValue]);
     },
-    Items: function() {
-      this.setListHeight();
+    Items: function(newValue) {
+      this.currentIndex = 0;
+      this.setListHeightFor(newValue.length);
     }
   },
   methods: {
-    setListHeight: function() {
+    setListHeightFor: function(numberOfItems) {
 
-      const maxItems = this.VisibleItems < this.Items.length ? this.VisibleItems : this.Items.length;
+      const shownItems = this.VisibleItems < numberOfItems ? this.VisibleItems : numberOfItems;
 
-      this.listElement.style.height = `${maxItems * this.heightOfElement}px`;
+      this.listElement.style.height = `${shownItems * this.heightOfItemElement}px`;
     },
     onDown: function() {
       this.currentIndex = (this.currentIndex + 1) % this.Items.length;
@@ -92,19 +91,19 @@ export default {
       if(index)
         this.currentIndex = index;
 
-      this.$emit('clicked', this.Items[this.currentIndex]);
+      this.$emit('selected', this.Items[this.currentIndex]);
     }
   },
   mounted() {
 
-    this.heightOfElement = this.currentElement.getBoundingClientRect().height;
+    this.heightOfItemElement = this.currentElement.getBoundingClientRect().height;
 
-    this.setListHeight();
+    this.setListHeightFor(this.VisibleItems);
   },
   data() {
     return {
       currentIndex: 0,
-      heightOfElement: 0
+      heightOfItemElement: 0
     }
   }
 }

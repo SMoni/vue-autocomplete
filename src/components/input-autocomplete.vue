@@ -5,7 +5,7 @@
       @keydown.up.prevent    ="onUp()"
       @keydown.enter.prevent ="onEnter()"
       @keydown.esc.prevent   ="onEsc()"
-      @input                 ="onInputSet($event.target.value)"
+      @input                 ="onInput($event.target.value)"
       :value                 ="filter"
 
     >
@@ -15,7 +15,7 @@
         Property="name"
         :VisibleItems='VisibleItems'
         ref="thisSelection"
-        @clicked="value => onClicked(value)"
+        @selected="onSelected"
       ></list-selection>
     </div>
   </div>
@@ -53,8 +53,10 @@ export default {
   },
   methods: {
     onDown: function() {
+      if(this.showList)
+        this.$refs.thisSelection.onDown();
+
       this.showList = true;
-      this.$refs.thisSelection.onDown();
     },
     onUp: function() {
       this.$refs.thisSelection.onUp();
@@ -65,11 +67,11 @@ export default {
     onEsc: function() {
       this.showList = false;
     },
-    onInputSet: function(value) {
+    onInput: function(value) {
       this.filter   = value;
       this.showList = value !== '' && this.filtered.length > 0;
     },
-    onClicked: function(value) {
+    onSelected: function(value) {
       this.showList = false;
       this.filter   = value[this.Property];
     }
