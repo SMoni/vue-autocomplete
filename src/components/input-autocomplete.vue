@@ -73,7 +73,20 @@ export default {
     },
     onSelected: function(value) {
       this.showList = false;
-      this.filter   = value[this.Property];
+
+      if(value) {
+        this.filter = value[this.Property];
+        this.$emit('input', value);
+      } else {
+
+        const dummy = {};
+
+        dummy[this.Property] = this.filter
+
+        this.$emit('input', dummy);
+      }
+
+
     }
   },
   mounted() {

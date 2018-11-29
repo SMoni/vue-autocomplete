@@ -3,7 +3,8 @@
     <!-- <list-selection :Items="samples" Property="name" :VisibleItems='5' :isSelectable="true"  @selected="that => this.selectedSample = that"></list-selection>
     <p>{{ selectedSample.name }}</p> -->
     <hr>
-    <input-autocomplete :Items="samples" Property="name" :VisibleItems='10'></input-autocomplete>
+    <input-autocomplete :Items="samples" Property="name" :VisibleItems='10' @input="that => this.inputSample = that"></input-autocomplete>
+    <p>{{ inputSample.name }}</p>
 
     <hr>
   </div>
@@ -27,7 +28,8 @@ export default {
   data() {
     return {
       selectedSample: { name: '-' },
-      samples: SampleData
+      samples: SampleData,
+      inputSample: { name: '-' }
     }
   }
 }
