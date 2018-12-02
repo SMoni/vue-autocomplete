@@ -62,7 +62,12 @@ export default {
       this.$refs.thisSelection.onUp();
     },
     onEnter: function() {
-      this.$refs.thisSelection.onClick();
+
+      if(this.filter === '' && !this.showList) {
+        this.onSelected();
+      } else {
+        this.$refs.thisSelection.onClick();
+      }
     },
     onEsc: function() {
       this.showList = false;
