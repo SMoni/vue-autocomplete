@@ -69,9 +69,13 @@ export default {
     },
     onInput: function(value) {
       this.filter   = value;
+
+      this.onSelected();
+
       this.showList = value !== '' && this.filtered.length > 0;
     },
     onSelected: function(value) {
+
       this.showList = false;
 
       if(value) {
