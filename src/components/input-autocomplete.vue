@@ -1,12 +1,22 @@
 <template>
   <div class="input-autocomplete">
     <input class="input"
-      @keydown.down.prevent ="$refs.thisSelection.onDown()"
-      @keydown.up.prevent   ="$refs.thisSelection.onUp()"
-      @input                ="onInputSet($event.target.value)"
+      @keydown.down.prevent  ="onDown()"
+      @keydown.up.prevent    ="onUp()"
+      @keydown.enter.prevent ="onEnter()"
+      @keydown.esc.prevent   ="onEsc()"
+      @input                 ="onInput($event.target.value)"
+      :value                 ="filter"
+
     >
     <div class="items" v-show="showList">
-      <list-selection  :Items="filtered" Property="name" :VisibleItems='VisibleItems' ref="thisSelection"></list-selection>
+      <list-selection 
+        :Items="filtered"
+        :Property="Property"
+        :VisibleItems='VisibleItems'
+        ref="thisSelection"
+        @selected="onSelected"
+      ></list-selection>
     </div>
   </div>
 </template>
@@ -42,10 +52,51 @@ export default {
     }
   },
   methods: {
-    onInputSet(value) {
+    onDown: function() {
+      if(this.showList)
+        this.$refs.thisSelection.onDown();
+
+      this.showList = true;
+    },
+    onUp: function() {
+      this.$refs.thisSelection.onUp();
+    },
+    onEnter: function() {
+
+      if(this.filter === '' && !this.showList) {
+        this.onSelected();
+      } else {
+        this.$refs.thisSelection.onClick();
+      }
+    },
+    onEsc: function() {
+      this.showList = false;
+    },
+    onInput: function(value) {
       this.filter   = value;
-      this.showList = value !== '';
-    }      
+
+      this.onSelected();
+
+      this.showList = value !== '' && this.filtered.length > 0;
+    },
+    onSelected: function(value) {
+
+      this.showList = false;
+
+      if(value) {
+        this.filter = value[this.Property];
+        this.$emit('input', value);
+      } else {
+
+        const dummy = {};
+
+        dummy[this.Property] = this.filter
+
+        this.$emit('input', dummy);
+      }
+
+
+    }
   },
   mounted() {
     /* Hack
@@ -54,7 +105,6 @@ export default {
       element is displayed.
     */
     this.showList = false;
-
   },
   data() {
     return {

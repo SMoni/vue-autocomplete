@@ -7,6 +7,10 @@
     <spike-component :value="spikeValue" @input="that => this.spikeValue = that"></spike-component>
     <div>{{ spikeValue.name }}</div>
     <hr>
+    <input-autocomplete :Items="samples" Property="name" :VisibleItems='10' @input="that => this.inputSample = that"></input-autocomplete>
+    <p>{{ inputSample.name }}</p>
+
+    <hr>
   </div>
 </template>
 
@@ -31,7 +35,11 @@ export default {
     return {
       selectedSample: { name: '-' },
       samples: SampleData,
+<<<<<<< HEAD
       spikeValue: { name: '-' }
+=======
+      inputSample: { name: '-' }
+>>>>>>> 7dc238d8855cf59f5daa31c3fdbb5dee153dfa47
     }
   }
 }
@@ -40,6 +48,7 @@ export default {
 <style lang="less">
 
 body {
+
   font-family: Arial, Helvetica, sans-serif;
   padding: 2rem;
 
@@ -59,6 +68,13 @@ body {
         background-color: DodgerBlue !important; 
         color: #ffffff; 
       }
+    }
+  }
+
+  .input-autocomplete {
+
+    .items {
+      box-shadow: 5px 10px 8px #888888;
     }
   }
 }

@@ -1,9 +1,5 @@
 <template>
-  <div class="list-selection"
-    :tabindex="isSelectable ? 0 : false"
-    @keydown.down.prevent ="onDown"
-    @keydown.up.prevent   ="onUp"
-  >
+  <div class="list-selection">
     <div v-for="(item, index) in Items" 
       :key="index"
       :class="[{ active: index === currentIndex }, 'item', `item-${index}` ]"
@@ -15,8 +11,6 @@
 </template>
 
 <script>
-/* eslint-disable */
-
 export default {
   name: 'list-selection',
   props: {
@@ -46,14 +40,27 @@ export default {
     },
     currentElement: function() {
       return this.$el.querySelector(`.item-${this.currentIndex}`);
+    },
+    shownItems: function() {
+
+      const numberOfItems = this.Items.length;
+
+      return this.VisibleItems < numberOfItems ? this.VisibleItems : numberOfItems;
     }
   },
   watch: {
     currentIndex: function(newValue) {
-      this.$emit('selected', this.Items[newValue]);
+      this.$emit('changed', this.Items[newValue]);
+    },
+    Items: function(newValue) {
+      this.currentIndex = 0;
+      this.setListHeightFor(newValue.length);
     }
   },
   methods: {
+    setListHeightFor: function() {
+      this.listElement.style.height = `${this.shownItems * this.heightOfItemElement}px`;
+    },
     onDown: function() {
       this.currentIndex = (this.currentIndex + 1) % this.Items.length;
 
@@ -82,25 +89,37 @@ export default {
       }      
     },
     onClick: function(index) {
-      this.currentIndex = index;
+      
+      if(index)
+        this.currentIndex = index;
+
+      this.$emit('selected', this.Items[this.currentIndex]);
     }
   },
   mounted() {
-    this.listElement.style.height = `${this.VisibleItems * this.currentElement.getBoundingClientRect().height}px`;
+
+    this.heightOfItemElement = this.currentElement.getBoundingClientRect().height;
+
+    this.setListHeightFor();
   },
   data() {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      heightOfItemElement: 0
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
 .list-selection {
+
   overflow-y: auto;
   position:   relative;
-}
 
+  .item {
+    cursor: pointer;
+  }
+}
 </style>
+
