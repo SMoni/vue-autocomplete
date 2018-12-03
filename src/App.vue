@@ -4,9 +4,9 @@
     <p>{{ selectedSample.name }}</p> -->
     <!-- <hr>
     <input-autocomplete :Items="samples" Property="name" :VisibleItems='10'></input-autocomplete> -->
-    <spike-component :value="spikeValue" @input="that => this.spikeValue = that"></spike-component>
+    <!-- <spike-component :value="spikeValue" @input="that => this.spikeValue = that"></spike-component>
     <div>{{ spikeValue.name }}</div>
-    <hr>
+    <hr> -->
     <input-autocomplete :Items="samples" Property="name" :VisibleItems='10' @input="that => this.inputSample = that"></input-autocomplete>
     <p>{{ inputSample.name }}</p>
 

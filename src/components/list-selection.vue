@@ -11,12 +11,19 @@
 </template>
 
 <script>
+/* eslint-disable */
 export default {
   name: 'list-selection',
   props: {
     Items: {
       type: Array,
-      default: () => []
+      default: function() {
+
+        const placeholder = {};
+        placeholder[this.Property] = '';
+
+        return [placeholder];
+      }
     },
     Property: {
       type: String,
@@ -52,13 +59,13 @@ export default {
     currentIndex: function(newValue) {
       this.$emit('changed', this.Items[newValue]);
     },
-    Items: function(newValue) {
+    Items: function() {
       this.currentIndex = 0;
-      this.setListHeightFor(newValue.length);
+      this.setListHeight();
     }
   },
   methods: {
-    setListHeightFor: function() {
+    setListHeight: function() {
       this.listElement.style.height = `${this.shownItems * this.heightOfItemElement}px`;
     },
     onDown: function() {
@@ -94,13 +101,20 @@ export default {
         this.currentIndex = index;
 
       this.$emit('selected', this.Items[this.currentIndex]);
+    },
+  },
+  created() {
+    if(this.Items.length > 0) {
+      return;
     }
+
+    const placeholder = {};
+    placeholder[this.Property] = '-';
+    this.Items.push(placeholder);
   },
   mounted() {
-
     this.heightOfItemElement = this.currentElement.getBoundingClientRect().height;
-
-    this.setListHeightFor();
+    this.setListHeight();
   },
   data() {
     return {
