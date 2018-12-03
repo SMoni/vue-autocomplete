@@ -53,8 +53,10 @@ export default {
   },
   methods: {
     onDown: function() {
-      if(this.showList)
+
+      if(this.showList) {
         this.$refs.thisSelection.onDown();
+      }
 
       this.showList = true;
     },
@@ -73,7 +75,7 @@ export default {
       this.showList = false;
     },
     onInput: function(value) {
-      this.filter   = value;
+      this.filter = value;
 
       this.onSelected();
 
@@ -94,8 +96,6 @@ export default {
 
         this.$emit('input', dummy);
       }
-
-
     }
   },
   mounted() {
