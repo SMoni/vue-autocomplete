@@ -35,11 +35,8 @@ export default {
     return {
       selectedSample: { name: '-' },
       samples: SampleData,
-<<<<<<< HEAD
-      spikeValue: { name: '-' }
-=======
+      spikeValue: { name: '-' },
       inputSample: { name: '-' }
->>>>>>> 7dc238d8855cf59f5daa31c3fdbb5dee153dfa47
     }
   }
 }
