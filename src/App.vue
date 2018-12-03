@@ -2,9 +2,10 @@
   <div id="app">
     <!-- <list-selection :Items="samples" Property="name" :VisibleItems='5' :isSelectable="true"  @selected="that => this.selectedSample = that"></list-selection>
     <p>{{ selectedSample.name }}</p> -->
-    <hr>
-    <input-autocomplete :Items="samples" Property="name" :VisibleItems='10'></input-autocomplete>
-
+    <!-- <hr>
+    <input-autocomplete :Items="samples" Property="name" :VisibleItems='10'></input-autocomplete> -->
+    <spike-component :value="spikeValue" @input="that => this.spikeValue = that"></spike-component>
+    <div>{{ spikeValue.name }}</div>
     <hr>
   </div>
 </template>
@@ -13,6 +14,7 @@
 /* eslint-disable */
 import 'normalize.css'
 
+import SpikeComponent    from '@/components/spike-component'
 import ListSelection     from '@/components/list-selection'
 import InputAutocomplete from '@/components/input-autocomplete'
 
@@ -22,12 +24,14 @@ export default {
   name: 'app',
   components: {
     ListSelection,
-    InputAutocomplete
+    InputAutocomplete,
+    SpikeComponent
   },
   data() {
     return {
       selectedSample: { name: '-' },
-      samples: SampleData
+      samples: SampleData,
+      spikeValue: { name: '-' }
     }
   }
 }
