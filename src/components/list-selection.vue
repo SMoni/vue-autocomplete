@@ -11,7 +11,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { createPlaceholderWith } from '@/components/utilities'
 
 export default {
@@ -31,11 +30,7 @@ export default {
       validator: function (value) {
         return value >= 1;
       }      
-    },
-    isSelectable: {
-      type: Boolean,
-      default: false
-    },
+    }
   },
   computed: {
     listElement: function() {

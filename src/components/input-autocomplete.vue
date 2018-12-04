@@ -1,27 +1,26 @@
 <template>
   <div class="input-autocomplete">
     <input class="input"
-      @keydown.down.prevent  ="onDown()"
-      @keydown.up.prevent    ="onUp()"
-      @keydown.enter.prevent ="onEnter()"
-      @keydown.esc.prevent   ="onEsc()"
-      @input                 ="onInput($event.target.value)"
-      :value                 ="filter"
-
+      @keydown.down.prevent ="onDown()"
+      @keydown.up.prevent   ="onUp()"
+      @keydown.enter.prevent="onEnter()"
+      @keydown.esc.prevent  ="onEsc()"
+      @input                ="onInput($event.target.value)"
+      @blur                 ="test"
+      :value                ="filter"
     >
-    <div class="items" v-show="showList">
-      <list-selection 
-        :Items="filtered"
-        :Property="Property"
-        :VisibleItems='VisibleItems'
-        ref="thisSelection"
-        @selected="onSelected"
-      ></list-selection>
-    </div>
+    <list-selection v-show="showList"
+      :Items="filtered"
+      :Property="Property"
+      :VisibleItems='VisibleItems'
+      ref="thisSelection"
+      @selected="onSelected"
+    ></list-selection>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 import ListSelection from '@/components/list-selection'
 import { createPlaceholderWith } from '@/components/utilities'
 
@@ -53,6 +52,9 @@ export default {
     }
   },
   methods: {
+    test: function(value) {
+      console.log(value);
+    },
     onDown: function() {
 
       if(this.showList) {
@@ -99,7 +101,7 @@ export default {
   mounted() {
     /* Hack
       In list-selection "getBoundingClientRect" is used to determine
-      the height of one element, which could only be obtained, if the
+      the height of one element, which could only be obtained if the
       element is displayed.
     */
     this.showList = false;
@@ -120,7 +122,7 @@ export default {
   position: relative;
   display:  inline-block;
 
-  .items {
+  .list-selection {
     background-color: white;
     position:      absolute;
     z-index:       99;
