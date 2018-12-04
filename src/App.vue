@@ -4,9 +4,6 @@
     <p>{{ selectedSample.name }}</p> -->
     <!-- <hr>
     <input-autocomplete :Items="samples" Property="name" :VisibleItems='10'></input-autocomplete> -->
-    <!-- <spike-component :value="spikeValue" @input="that => this.spikeValue = that"></spike-component>
-    <div>{{ spikeValue.name }}</div>
-    <hr> -->
     
     <input-autocomplete
       :Items="samples"
@@ -24,7 +21,6 @@
 /* eslint-disable */
 import 'normalize.css'
 
-import SpikeComponent    from '@/components/spike-component'
 import ListSelection     from '@/components/list-selection'
 import InputAutocomplete from '@/components/input-autocomplete'
 
@@ -34,8 +30,7 @@ export default {
   name: 'app',
   components: {
     ListSelection,
-    InputAutocomplete,
-    SpikeComponent
+    InputAutocomplete
   },
   data() {
     return {
