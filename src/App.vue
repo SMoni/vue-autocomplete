@@ -7,8 +7,14 @@
     <!-- <spike-component :value="spikeValue" @input="that => this.spikeValue = that"></spike-component>
     <div>{{ spikeValue.name }}</div>
     <hr> -->
-    <input-autocomplete :Items="samples" Property="name" :VisibleItems='10' @input="that => this.inputSample = that"></input-autocomplete>
-    <p>{{ inputSample.name }}</p>
+    
+    <input-autocomplete
+      :Items="samples"
+      Property="name"
+      :VisibleItems='10'
+      @input="that => this.inputSample = that"
+    ></input-autocomplete>
+    <span> {{ inputSample.name }}</span>
 
     <hr>
   </div>

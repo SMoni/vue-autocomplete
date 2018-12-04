@@ -22,7 +22,9 @@
 </template>
 
 <script>
+/* eslint-disable */
 import ListSelection from '@/components/list-selection'
+import { createPlaceholderWith } from '@/components/utilities'
 
 export default {
   name: 'input-autocomplete',
@@ -89,12 +91,9 @@ export default {
         this.filter = value[this.Property];
         this.$emit('input', value);
       } else {
-
-        const dummy = {};
-
-        dummy[this.Property] = this.filter
-
-        this.$emit('input', dummy);
+        this.$emit('input', 
+          createPlaceholderWith(this.Property, this.filter)
+        );
       }
     }
   },

@@ -12,18 +12,14 @@
 
 <script>
 /* eslint-disable */
+import { createPlaceholderWith } from '@/components/utilities'
+
 export default {
   name: 'list-selection',
   props: {
     Items: {
       type: Array,
-      default: function() {
-
-        const placeholder = {};
-        placeholder[this.Property] = '';
-
-        return [placeholder];
-      }
+      default: () => []
     },
     Property: {
       type: String,
@@ -104,13 +100,9 @@ export default {
     },
   },
   created() {
-    if(this.Items.length > 0) {
-      return;
+    if(this.Items.length <= 0) {
+      this.Items.push(createPlaceholderWith(this.Property));
     }
-
-    const placeholder = {};
-    placeholder[this.Property] = '-';
-    this.Items.push(placeholder);
   },
   mounted() {
     this.heightOfItemElement = this.currentElement.getBoundingClientRect().height;
