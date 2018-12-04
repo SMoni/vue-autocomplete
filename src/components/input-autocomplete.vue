@@ -8,7 +8,7 @@
       @input                ="onInput($event.target.value)"
       :value                ="filter"
     >
-    <list-selection v-show="showList"
+    <list-selection v-show="isListVisible"
       :Items="filtered"
       :Property="Property"
       :VisibleItems='VisibleItems'
@@ -19,9 +19,7 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ListSelection from '@/components/list-selection'
-import { createPlaceholderWith } from '@/components/utilities'
 
 export default {
   name: 'input-autocomplete',
@@ -29,6 +27,9 @@ export default {
     ListSelection
   },
   props: {
+    value: {
+      type: Object
+    },
     Items: {
       type: Array,
       default: () => []
@@ -53,46 +54,59 @@ export default {
   methods: {
     onDown: function() {
 
-      if(this.showList) {
+      if(this.isListVisible) {
         this.$refs.list.onDown();
       }
 
-      this.showList = true;
+      this.openList();
     },
     onUp: function() {
       this.$refs.list.onUp();
     },
     onEnter: function() {
 
-      if(this.filter === '' && !this.showList) {
+      if(this.filter === '' && !this.isListVisible) {
         this.onSelected();
       } else {
         this.$refs.list.onClick();
       }
     },
-    closeList: function() {
-      this.showList = false;
-    },
     onInput: function(value) {
+
       this.filter = value;
 
       this.onSelected();
 
-      this.showList = value !== '' && this.filtered.length > 0;
+      if(this.filter !== '' && this.filtered.length > 0) {
+        this.openList();
+      }
     },
     onSelected: function(value) {
 
-      this.showList = false;
+      this.closeList();
 
       if(value) {
         this.filter = value[this.Property];
         this.$emit('input', value);
       } else {
         this.$emit('input', 
-          createPlaceholderWith(this.Property, this.filter)
+          this.$refs.list.createPlaceholderWith(this.Property, this.filter)
         );
       }
+    },
+    openList: function() {
+      this.isListVisible = true;
+    },
+    closeList: function() {
+      this.isListVisible = false;
     }
+  },
+  created() {
+    if(!this.value || !this.value[this.Property]) {
+      this.value = this.createPlaceholderWith(this.Property, '');
+    }
+
+    this.filter = this.value[this.Property];
   },
   mounted() {
     /* Hack
@@ -100,7 +114,7 @@ export default {
       the height of one element, which could only be obtained if the
       element is displayed.
     */
-    this.showList = false;
+    this.closeList();
 
     document.addEventListener('click', this.closeList);
   },
@@ -109,8 +123,8 @@ export default {
   },
   data() {
     return {
-      filter:   '',
-      showList: true
+      filter: '',
+      isListVisible: true
     }
   }
 }

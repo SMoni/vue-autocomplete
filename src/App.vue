@@ -5,6 +5,7 @@
       Property="name"
       :VisibleItems='10'
       @input="that => this.inputSample = that"
+      :value="inputSample"
     ></input-autocomplete>
     <span> {{ inputSample.name }}</span>
     <hr>
@@ -25,10 +26,8 @@ export default {
   },
   data() {
     return {
-      selectedSample: { name: '-' },
       samples: SampleData,
-      spikeValue: { name: '-' },
-      inputSample: { name: '-' }
+      inputSample: { name: 'Sample' }
     }
   }
 }
