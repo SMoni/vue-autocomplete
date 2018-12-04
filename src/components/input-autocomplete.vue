@@ -4,16 +4,15 @@
       @keydown.down.prevent ="onDown()"
       @keydown.up.prevent   ="onUp()"
       @keydown.enter.prevent="onEnter()"
-      @keydown.esc.prevent  ="onEsc()"
+      @keydown.esc.prevent  ="closeList()"
       @input                ="onInput($event.target.value)"
-      @blur                 ="test"
       :value                ="filter"
     >
     <list-selection v-show="showList"
       :Items="filtered"
       :Property="Property"
       :VisibleItems='VisibleItems'
-      ref="thisSelection"
+      ref="list"
       @selected="onSelected"
     ></list-selection>
   </div>
@@ -52,29 +51,26 @@ export default {
     }
   },
   methods: {
-    test: function(value) {
-      console.log(value);
-    },
     onDown: function() {
 
       if(this.showList) {
-        this.$refs.thisSelection.onDown();
+        this.$refs.list.onDown();
       }
 
       this.showList = true;
     },
     onUp: function() {
-      this.$refs.thisSelection.onUp();
+      this.$refs.list.onUp();
     },
     onEnter: function() {
 
       if(this.filter === '' && !this.showList) {
         this.onSelected();
       } else {
-        this.$refs.thisSelection.onClick();
+        this.$refs.list.onClick();
       }
     },
-    onEsc: function() {
+    closeList: function() {
       this.showList = false;
     },
     onInput: function(value) {
@@ -105,6 +101,11 @@ export default {
       element is displayed.
     */
     this.showList = false;
+
+    document.addEventListener('click', this.closeList);
+  },
+  destroyed() {
+    document.removeEventListener('click', this.closeList);
   },
   data() {
     return {
