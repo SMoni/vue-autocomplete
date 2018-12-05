@@ -85,14 +85,13 @@ export default {
 
       this.closeList();
 
+      const placeholder = this.$refs.list.createPlaceholderWith(this.Property, this.filter);
+
       if(value) {
         this.filter = value[this.Property];
-        this.$emit('input', value);
-      } else {
-        this.$emit('input', 
-          this.$refs.list.createPlaceholderWith(this.Property, this.filter)
-        );
       }
+
+      this.$emit('input', value || placeholder);
     },
     openList: function() {
       this.isListVisible = true;
