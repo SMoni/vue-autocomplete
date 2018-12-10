@@ -48,7 +48,10 @@ export default {
   },
   computed: {
     filtered: function() {
-      return this.Items.filter(item => item.name.toUpperCase().includes(this.filter.toUpperCase()));
+
+      const filterUpperCase = this.filter.toUpperCase();
+
+      return this.Items.filter(item => item.name.toUpperCase().includes(filterUpperCase));
     }
   },
   methods: {
@@ -56,12 +59,15 @@ export default {
 
       if(this.isListVisible) {
         this.$refs.list.onDown();
+      } else {
+        this.openList();
       }
-
-      this.openList();
     },
     onUp: function() {
-      this.$refs.list.onUp();
+
+      if(this.isListVisible) {
+        this.$refs.list.onUp();
+      }
     },
     onEnter: function() {
 
