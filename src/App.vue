@@ -2,12 +2,12 @@
   <div id="app">
     <input-autocomplete
       :Items="samples"
+      :value="inputSample"
       Property="name"
       :VisibleItems='8'
       @input="that => this.inputSample = that"
-      :value="inputSample"
     ></input-autocomplete>
-    <span> {{ inputSample.name }}</span>
+    <span>{{ inputSample.name }}</span>
   </div>
 </template>
 
@@ -36,28 +36,29 @@ export default {
 body {
 
   font-family: Arial, Helvetica, sans-serif;
-  padding: 2rem;
+  padding:     2rem;
 
-  .input-autocomplete {
+  span {
+    padding-left: 1rem;
+  }
 
-    .list-selection {
+  .input-autocomplete .list-selection {
 
-      box-shadow: 5px 10px 8px #888888;
+    box-shadow: 5px 10px 8px #888888;
 
-      .item {
-        border:        1px solid transparent;
-        border-bottom: 1px solid #d4d4d4;
-        padding:       .2rem;
+    .item {
+      border:        1px solid transparent;
+      border-bottom: 1px solid #d4d4d4;
+      padding:       .2rem;
 
-        &:hover {
-          background-color: black;
-          color:            white;
-        }
+      &:hover {
+        background-color: black;
+        color:            white;
+      }
 
-        &.active {
-          background-color: DodgerBlue !important; 
-          color:            #ffffff; 
-        }
+      &.active {
+        background-color: DodgerBlue; 
+        color:            #ffffff; 
       }
     }
   }
