@@ -1,9 +1,9 @@
 {
   "name": "@stm0n/vue-autocomplete",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SMoni/vue-controls.git"
+    "url": "git+https://github.com/SMoni/vue-autocomplete.git"
   },
   "main": "dist/vue-autocomplete.umd.js",
   "scripts": {
