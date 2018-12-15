@@ -1,3 +1,3 @@
 # vue-controls
 
-Test-2
+Just a simple input with autocomplete.

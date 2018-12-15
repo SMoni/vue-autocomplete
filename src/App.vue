@@ -3,21 +3,19 @@
     <input-autocomplete
       :Items="samples"
       Property="name"
-      :VisibleItems='10'
+      :VisibleItems='8'
       @input="that => this.inputSample = that"
       :value="inputSample"
     ></input-autocomplete>
     <span> {{ inputSample.name }}</span>
-    <hr>
   </div>
 </template>
 
 <script>
-import 'normalize.css'
-
 import InputAutocomplete from '@/components/input-autocomplete'
+import SampleData        from '@/assets/sample-data.json'
 
-import SampleData from '@/assets/sample-data.json'
+import 'normalize.css'
 
 export default {
   name: 'app',
@@ -40,7 +38,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   padding: 2rem;
 
-
   .input-autocomplete {
 
     .list-selection {
@@ -48,18 +45,18 @@ body {
       box-shadow: 5px 10px 8px #888888;
 
       .item {
-        border: 1px solid transparent;
+        border:        1px solid transparent;
         border-bottom: 1px solid #d4d4d4;
-        padding: .2rem;
+        padding:       .2rem;
 
         &:hover {
-          background-color: black;
-          color: white;
+          background-color:black;
+          color:           white;
         }
 
         &.active {
-          background-color: DodgerBlue !important; 
-          color: #ffffff; 
+          background-color:DodgerBlue !important; 
+          color:           #ffffff; 
         }
       }
     }

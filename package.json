@@ -1,6 +1,6 @@
 {
   "name": "@stm0n/vue-autocomplete",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SMoni/vue-autocomplete.git"
@@ -16,10 +16,10 @@
     "dist"
   ],  
   "dependencies": {
-    "normalize.css": "^8.0.1",
     "vue": "^2.5.17"
   },
   "devDependencies": {
+    "normalize.css": "^8.0.1",
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-plugin-eslint": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
