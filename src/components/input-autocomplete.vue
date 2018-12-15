@@ -118,6 +118,8 @@ export default {
       In list-selection "getBoundingClientRect" is used to determine
       the height of one element, which could only be obtained if the
       element is displayed.
+
+      So make it visible first per data.isListVisible and close it after mounting :/
     */
     this.closeList();
 
