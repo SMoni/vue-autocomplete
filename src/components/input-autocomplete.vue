@@ -53,7 +53,7 @@ export default {
 
       const filterUpperCase = this.filter.toUpperCase();
 
-      return this.Items.filter(item => item.name.toUpperCase().includes(filterUpperCase));
+      return this.Items.filter(item => item[this.Property].toUpperCase().includes(filterUpperCase));
     }
   },
   methods: {
