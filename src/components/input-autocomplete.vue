@@ -13,7 +13,7 @@
       :Property="Property"
       :VisibleItems='VisibleItems'
       ref="list"
-      @selected="onSelected"
+      @selected="item => { closeList(); onSelected(item); }"
     ></list-selection>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
     ListSelection
   },
   props: {
-    r: {
+    value: {
       type: Object
     },
     Items: {
@@ -54,6 +54,12 @@ export default {
       const filterUpperCase = this.filter.toUpperCase();
 
       return this.Items.filter(item => item[this.Property].toUpperCase().includes(filterUpperCase));
+    },
+    isFilterNotEmpty: function() {
+      return this.filter !== '';
+    },
+    isListNotEmpty: function() {
+      return this.filtered.length > 0;
     }
   },
   methods: {
@@ -73,7 +79,7 @@ export default {
     },
     onEnter: function() {
 
-      if(this.filter !== '' || this.isListVisible) {
+      if(this.isFilterNotEmpty || this.isListVisible) {
         this.$refs.list.onClick();
       }
     },
@@ -83,21 +89,21 @@ export default {
 
       this.onSelected();
 
-      if(this.filter !== '' && this.filtered.length > 0) {
+      if(this.isFilterNotEmpty && this.isListNotEmpty) {
         this.openList();
+      } else {
+        this.closeList();
       }
     },
-    onSelected: function(value) {
-
-      this.closeList();
+    onSelected: function(item) {
 
       const placeholder = createPlaceholderWith(this.Property, this.filter);
 
-      if(value) {
-        this.filter = value[this.Property];
+      if(item) {
+        this.filter = item[this.Property];
       }
 
-      this.$emit('input', value || placeholder);
+      this.$emit('input', item || placeholder);
     },
     openList: function() {
       this.isListVisible = true;
