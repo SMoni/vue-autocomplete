@@ -50,13 +50,13 @@ body {
         padding:       .2rem;
 
         &:hover {
-          background-color:black;
-          color:           white;
+          background-color: black;
+          color:            white;
         }
 
         &.active {
-          background-color:DodgerBlue !important; 
-          color:           #ffffff; 
+          background-color: DodgerBlue !important; 
+          color:            #ffffff; 
         }
       }
     }
