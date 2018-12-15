@@ -19,7 +19,9 @@
 </template>
 
 <script>
+/* eslint-disable */
 import ListSelection from '@/components/list-selection'
+import { createPlaceholderWith } from '@/components/tools'
 
 export default {
   name: 'input-autocomplete',
@@ -27,7 +29,7 @@ export default {
     ListSelection
   },
   props: {
-    value: {
+    r: {
       type: Object
     },
     Items: {
@@ -71,9 +73,7 @@ export default {
     },
     onEnter: function() {
 
-      if(this.filter === '' && !this.isListVisible) {
-        this.onSelected();
-      } else {
+      if(this.filter !== '' || this.isListVisible) {
         this.$refs.list.onClick();
       }
     },
@@ -91,7 +91,7 @@ export default {
 
       this.closeList();
 
-      const placeholder = this.$refs.list.createPlaceholderWith(this.Property, this.filter);
+      const placeholder = createPlaceholderWith(this.Property, this.filter);
 
       if(value) {
         this.filter = value[this.Property];
@@ -108,7 +108,7 @@ export default {
   },
   created() {
     if(!this.value || !this.value[this.Property]) {
-      this.value = this.createPlaceholderWith(this.Property, '');
+      this.value = createPlaceholderWith(this.Property, '');
     }
 
     this.filter = this.value[this.Property];

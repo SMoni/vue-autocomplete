@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { createPlaceholderWith } from '@/components/tools'
+
 export default {
   name: 'list-selection',
   props: {
@@ -96,19 +98,11 @@ export default {
       }
 
       this.$emit('selected', this.Items[this.currentIndex]);
-    },
-    createPlaceholderWith: function(thisProperty, thisValue) {
-
-      const placeholder = {};
-
-      placeholder[thisProperty] = thisValue || thisValue === '' ? thisValue : '-'; 
-
-      return placeholder;
-    }    
+    }
   },
   created() {
     if(this.Items.length <= 0) {
-      this.Items.push(this.createPlaceholderWith(this.Property));
+      this.Items.push(createPlaceholderWith(this.Property));
     }
   },
   mounted() {
