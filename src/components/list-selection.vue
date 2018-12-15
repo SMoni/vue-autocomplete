@@ -1,8 +1,16 @@
 <template>
-  <div class="list-selection">
+  <div class="list-selection" style="
+    overflow-Y:       auto; 
+    background-color: white;
+    position:         absolute;
+    z-index:          99;
+    left:             0;
+    right:            0;
+  ">
     <div v-for="(item, index) in Items" 
       :key="index"
       :class="[{ active: index === currentIndex }, 'item', `item-${index}` ]"
+      style="cursor: pointer"
       @click="onClick(index)"
     >
       {{ item[Property] }}
@@ -45,9 +53,6 @@ export default {
     }
   },
   watch: {
-    currentIndex: function(newValue) {
-      this.$emit('changed', this.Items[newValue]);
-    },
     Items: function() {
       this.currentIndex = 0;
       this.setListHeight();
@@ -86,8 +91,9 @@ export default {
     },
     onClick: function(index) {
       
-      if(index)
+      if(index) {
         this.currentIndex = index;
+      }
 
       this.$emit('selected', this.Items[this.currentIndex]);
     },
@@ -117,16 +123,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-.list-selection {
-
-  overflow-y: auto;
-  position:   relative;
-
-  .item {
-    cursor: pointer;
-  }
-}
-</style>
-

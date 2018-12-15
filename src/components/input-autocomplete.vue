@@ -1,5 +1,5 @@
 <template>
-  <div class="input-autocomplete">
+  <div class="input-autocomplete" style="position: relative; display:  inline-block;">
     <input class="input"
       @keydown.down.prevent ="onDown()"
       @keydown.up.prevent   ="onUp()"
@@ -134,22 +134,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-
-.input-autocomplete {
-
-  position: relative;
-  display:  inline-block;
-
-  .list-selection {
-    background-color: white;
-    position:      absolute;
-    z-index:       99;
-    left:          0;
-    right:         0;
-  }
-}
-
-</style>
-

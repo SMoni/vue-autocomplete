@@ -1,12 +1,20 @@
 {
-  "name": "vue-controls",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@stm0n/vue-autocomplete",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SMoni/vue-controls.git"
+  },
+  "main": "dist/vue-autocomplete.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "pack": "vue-cli-service build --target lib --name vue-autocomplete 'src/components/input-autocomplete.vue'"
   },
+  "files": [
+    "dist"
+  ],  
   "dependencies": {
     "normalize.css": "^8.0.1",
     "vue": "^2.5.17"
