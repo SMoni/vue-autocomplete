@@ -1,10 +1,11 @@
 {
   "name": "@stm0n/vue-autocomplete",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SMoni/vue-autocomplete.git"
   },
+  "homepage": "https://github.com/SMoni/vue-autocomplete#readme",
   "keywords": [
     "vue",
     "form",
