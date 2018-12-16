@@ -11,7 +11,7 @@
     <list-selection v-show="isListVisible"
       :Items="filtered"
       :Property="Property"
-      :VisibleItems='VisibleItems'
+      :VisibleItems="VisibleItems"
       ref="list"
       @selected="onSelectedListItem"
     ></list-selection>
