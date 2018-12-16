@@ -1,16 +1,9 @@
 <template>
-  <div class="list-selection" style="
-    overflow-Y:       auto; 
-    background-color: white;
-    position:         absolute;
-    z-index:          99;
-    left:             0;
-    right:            0;
-  ">
+  <div class="list-selection" :style="styles.list">
     <div v-for="(item, index) in Items" 
       :key="index"
-      :class="[{ active: index === currentIndex }, 'item', `item-${index}` ]"
-      style="cursor: pointer"
+      :class="[{ active: isCurrent(index) }, 'item', `item-${index}` ]"
+      :style="styles.item"
       @click="onClick(index)"
     >
       {{ item[Property] }}
@@ -48,10 +41,13 @@ export default {
       return this.$el.querySelector(`.item-${this.currentIndex}`);
     },
     shownItems: function() {
-
-      const numberOfItems = this.Items.length;
-
-      return this.VisibleItems < numberOfItems ? this.VisibleItems : numberOfItems;
+      return this.VisibleItems < this.numberOfItems ? this.VisibleItems : this.numberOfItems;
+    },
+    isListEmpty: function() {
+      return this.Items.length <= 0;
+    },
+    numberOfItems: function() {
+      return this.Items.length;
     }
   },
   watch: {
@@ -100,10 +96,13 @@ export default {
       }
 
       this.$emit('selected', this.Items[this.currentIndex]);
-    }
+    },
+    isCurrent: function(index) {
+      return this.currentIndex === index;
+    }    
   },
   created() {
-    if(this.Items.length <= 0) {
+    if(this.isListEmpty) {
       this.Items.push(createPlaceholderWith(this.Property));
     }
   },
@@ -114,7 +113,20 @@ export default {
   data() {
     return {
       currentIndex: 0,
-      heightOfItemElement: 0
+      heightOfItemElement: 0,
+      styles: {
+        list: {
+          'overflow-Y':       'auto',
+          'background-color': 'white',
+          'position':         'absolute',
+          'z-index':          '99',
+          'left':             0,
+          'right':            0,
+        },
+        item: {
+          'cursor': 'pointer'
+        }
+      } 
     }
   }
 }

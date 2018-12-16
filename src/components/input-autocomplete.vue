@@ -1,19 +1,19 @@
 <template>
-  <div class="input-autocomplete" style="position: relative; display:  inline-block;">
+  <div class="input-autocomplete" :style="styles.autocomplete">
     <input class="input"
       @keydown.down.prevent ="onDown()"
       @keydown.up.prevent   ="onUp()"
       @keydown.enter.prevent="onEnter()"
       @keydown.esc.prevent  ="closeList()"
       @input                ="onInput($event.target.value)"
-      :value                ="filter"
+      :value                ="inputValue"
     >
     <list-selection v-show="isListVisible"
       :Items="filtered"
       :Property="Property"
       :VisibleItems='VisibleItems'
       ref="list"
-      @selected="item => { closeList(); filter = item[Property]; onSelected(item); }"
+      @selected="onSelectedListItem"
     ></list-selection>
   </div>
 </template>
@@ -51,12 +51,13 @@ export default {
   computed: {
     filtered: function() {
 
-      const filterUpperCase = this.filter.toUpperCase();
+      const filterUpperCase = this.inputValue.toUpperCase();
+      const asInclude       = item => item[this.Property].toUpperCase().includes(filterUpperCase);
 
-      return this.Items.filter(item => item[this.Property].toUpperCase().includes(filterUpperCase));
+      return this.Items.filter(asInclude);
     },
-    isFilterNotEmpty: function() {
-      return this.filter !== '';
+    isInputNotEmpty: function() {
+      return this.inputValue !== '';
     },
     isListNotEmpty: function() {
       return this.filtered.length > 0;
@@ -85,17 +86,25 @@ export default {
     },
     onInput: function(value) {
 
-      this.filter = value;
+      this.inputValue = value;
 
-      this.onSelected(createPlaceholderWith(this.Property, this.filter));
+      this.emitInputWith(createPlaceholderWith(this.Property, this.inputValue));
 
-      if(this.isFilterNotEmpty && this.isListNotEmpty) {
+      if(this.isInputNotEmpty && this.isListNotEmpty) {
         this.openList();
       } else {
         this.closeList();
       }
     },
-    onSelected: function(item) {
+    onSelectedListItem: function(item) {
+
+      this.closeList();
+      
+      this.inputValue = item[this.Property];
+      
+      this.emitInputWith(item);
+    },
+    emitInputWith: function(item) {
       this.$emit('input', item);
     },
     openList: function() {
@@ -106,11 +115,10 @@ export default {
     }
   },
   created() {
-    if(!this.value || !this.value[this.Property]) {
-      this.value = createPlaceholderWith(this.Property, '');
-    }
 
-    this.filter = this.value[this.Property];
+    this.inputValue = this.value || this.value[this.Property] 
+      ? this.value[this.Property]
+      : createPlaceholderWith(this.Property, '');
   },
   mounted() {
     /* Hack
@@ -129,8 +137,14 @@ export default {
   },
   data() {
     return {
-      filter: '',
-      isListVisible: true
+      inputValue: '',
+      isListVisible: true,
+      styles: {
+        autocomplete: {
+          'position': 'relative',
+          'display':  'inline-block'
+        }
+      }
     }
   }
 }
