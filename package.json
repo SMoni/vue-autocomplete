@@ -1,6 +1,6 @@
 {
   "name": "@stm0n/vue-autocomplete",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SMoni/vue-autocomplete.git"
@@ -11,7 +11,8 @@
     "form",
     "input",
     "autocomplete"
-  ],  
+  ],
+  "license": "MIT",
   "main": "dist/vue-autocomplete.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
