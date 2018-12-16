@@ -13,7 +13,7 @@
       :Property="Property"
       :VisibleItems='VisibleItems'
       ref="list"
-      @selected="item => { closeList(); onSelected(item); }"
+      @selected="item => { closeList(); filter = item[Property]; onSelected(item); }"
     ></list-selection>
   </div>
 </template>
@@ -79,7 +79,7 @@ export default {
     },
     onEnter: function() {
 
-      if(this.isFilterNotEmpty || this.isListVisible) {
+      if(this.isListVisible && this.isListNotEmpty) {
         this.$refs.list.onClick();
       }
     },
@@ -87,7 +87,7 @@ export default {
 
       this.filter = value;
 
-      this.onSelected();
+      this.onSelected(createPlaceholderWith(this.Property, this.filter));
 
       if(this.isFilterNotEmpty && this.isListNotEmpty) {
         this.openList();
@@ -96,14 +96,7 @@ export default {
       }
     },
     onSelected: function(item) {
-
-      const placeholder = createPlaceholderWith(this.Property, this.filter);
-
-      if(item) {
-        this.filter = item[this.Property];
-      }
-
-      this.$emit('input', item || placeholder);
+      this.$emit('input', item);
     },
     openList: function() {
       this.isListVisible = true;

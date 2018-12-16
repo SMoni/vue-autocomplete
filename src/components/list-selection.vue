@@ -65,11 +65,13 @@ export default {
       this.listElement.style.height = `${this.shownItems * this.heightOfItemElement}px`;
     },
     onDown: function() {
+
       this.currentIndex = (this.currentIndex + 1) % this.Items.length;
 
       this.ensureVisibility().onDown();
     },
     onUp: function() {
+
       this.currentIndex = this.currentIndex >= 1 ? this.currentIndex - 1 : this.Items.length - 1;
 
       this.ensureVisibility().onUp();
@@ -92,7 +94,7 @@ export default {
       }      
     },
     onClick: function(index) {
-      
+
       if(index) {
         this.currentIndex = index;
       }
