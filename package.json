@@ -17,7 +17,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "pack": "vue-cli-service build --target lib --name vue-autocomplete 'src/components/input-autocomplete.vue'"
+    "bundle": "vue-cli-service build --target lib --name vue-autocomplete 'src/components/input-autocomplete.vue'"
   },
   "files": [
     "dist"
