@@ -19,7 +19,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import ListSelection from '@/components/list-selection'
 import { createPlaceholderWith } from '@/components/tools'
 
