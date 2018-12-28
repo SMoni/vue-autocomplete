@@ -1,10 +1,7 @@
 const createPlaceholderWith = (thisProperty, thisValue) => {
-
-  const placeholder = {};
-
-  placeholder[thisProperty] = thisValue || thisValue === '' ? thisValue : '-'; 
-
-  return placeholder;
+  return {
+    [thisProperty]: thisValue || thisValue === '' ? thisValue : '-'
+  };
 }    
 
 export { createPlaceholderWith };
