@@ -5,6 +5,7 @@
       @keydown.up.prevent   ="onUp()"
       @keydown.enter.prevent="onEnter()"
       @keydown.esc.prevent  ="closeList()"
+      @keydown.tab          ="onEnter()"
       @input                ="onInput($event.target.value)"
       :value                ="inputValue"
     >
