@@ -1,13 +1,10 @@
 <template>
   <div class="list-selection" :style="styles.list">
-    <div v-for="(item, index) in Items" 
-      :key="index"
+    <div v-for="(item, index) in Items" :key="index"
+      @click="onClick(index)"
       :class="[{ active: isCurrent(index) }, 'item', `item-${index}` ]"
       :style="styles.item"
-      @click="onClick(index)"
-    >
-      {{ item[Property] }}
-    </div>
+    >{{ item[Property] }}</div>
   </div>
 </template>
 
@@ -112,7 +109,7 @@ export default {
   },
   data() {
     return {
-      currentIndex: 0,
+      currentIndex:        0,
       heightOfItemElement: 0,
       styles: {
         list: {

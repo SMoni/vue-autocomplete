@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <input-autocomplete
-      :Items="samples"
-      :value="inputSample"
-      Property="name"
-      :VisibleItems='8'
-      @input="that => this.inputSample = that"
+      :Items       ="samples"
+      :value       ="inputSample"
+      Property     ="name"
+      :VisibleItems="8"
+      @input       ="that => this.inputSample = that"
     ></input-autocomplete>
     <span>{{ inputSample.name }}</span>
   </div>
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       samples: SampleData,
-      inputSample: { name: 'Sample' }
+      inputSample: { name: 'delete me & start typing' }
     }
   }
 }

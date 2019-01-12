@@ -1,6 +1,7 @@
 <template>
   <div class="input-autocomplete" :style="styles.autocomplete">
     <input class="input"
+      @focus                ="$event.target.select()"
       @keydown.down.prevent ="onDown()"
       @keydown.up.prevent   ="onUp()"
       @keydown.enter.prevent="onEnter()"
@@ -10,11 +11,11 @@
       :value                ="inputValue"
     >
     <list-selection v-show="isListVisible"
-      :Items="filtered"
-      :Property="Property"
+      @selected    ="onSelectedListItem"
+      :Items       ="filtered"
+      :Property    ="Property"
       :VisibleItems="VisibleItems"
-      ref="list"
-      @selected="onSelectedListItem"
+      ref          ="list"
     ></list-selection>
   </div>
 </template>
