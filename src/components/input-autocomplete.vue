@@ -116,10 +116,7 @@ export default {
     }
   },
   created() {
-
-    this.inputValue = this.value || this.value[this.Property] 
-      ? this.value[this.Property]
-      : createPlaceholderWith(this.Property, '');
+    this.inputValue = this.value && this.value[this.Property] ? this.value[this.Property] : ''
   },
   mounted() {
     /* Hack
