@@ -1,15 +1,17 @@
 <template>
   <div class="input-autocomplete" :style="styles.autocomplete">
     <input class="input"
-      @focus                ="$event.target.select()"
-      @keydown.down.prevent ="onDown()"
-      @keydown.up.prevent   ="onUp()"
-      @keydown.enter.prevent="onEnter()"
-      @keydown.esc.prevent  ="closeList()"
-      @keydown.tab          ="onEnter()"
-      @input                ="onInput($event.target.value)"
-      :value                ="inputValue"
-      :placeholder          ="Placeholder"
+      @focus                    ="$event.target.select()"
+      @keydown.down.prevent     ="onDown()"
+      @keydown.page-down.prevent="onPageDown()"
+      @keydown.up.prevent       ="onUp()"
+      @keydown.page-up.prevent  ="onPageUp()"
+      @keydown.enter.prevent    ="onEnter()"
+      @keydown.esc.prevent      ="closeList()"
+      @keydown.tab              ="onEnter()"
+      @input                    ="onInput($event.target.value)"
+      :value                    ="inputValue"
+      :placeholder              ="Placeholder"
     >
     <list-selection v-show="isListVisible"
       @selected    ="onSelectedListItem"
@@ -22,8 +24,14 @@
 </template>
 
 <script>
-import ListSelection from '@/components/list-selection'
+import Vue                       from 'vue'
+import ListSelection             from '@/components/list-selection'
 import { createPlaceholderWith } from '@/components/tools'
+
+Vue.config.keyCodes = {
+  'page-up': 33,
+  'page-down': 34
+}
 
 export default {
   name: 'input-autocomplete',
@@ -87,12 +95,30 @@ export default {
         this.openList();
       }
     },
+    onPageDown: function() {
+
+      if(this.isListEmpty) {
+        return;
+      }
+
+      if(this.isListVisible) {
+        this.$refs.list.onPageDown();
+      } else {
+        this.openList();
+      }
+    },    
     onUp: function() {
 
       if(this.isListVisible) {
         this.$refs.list.onUp();
       }
     },
+    onPageUp: function() {
+
+      if(this.isListVisible) {
+        this.$refs.list.onPageUp();
+      }
+    },    
     onEnter: function() {
 
       if(this.isListVisible && this.isListNotEmpty) {

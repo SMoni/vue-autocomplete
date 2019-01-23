@@ -63,11 +63,23 @@ export default {
 
       this.ensureVisibility().onDown();
     },
+    onPageDown: function() {
+
+      this.currentIndex = (this.currentIndex + this.shownItems) % this.Items.length;
+
+      this.ensureVisibility().onDown();
+    },
     onUp: function() {
 
       this.currentIndex = this.currentIndex >= 1 ? this.currentIndex - 1 : this.Items.length - 1;
 
       this.ensureVisibility().onUp();
+    },
+    onPageUp: function() {
+
+      this.currentIndex = this.currentIndex >= this.shownItems ? this.currentIndex - this.shownItems : this.Items.length - 1;
+
+      this.ensureVisibility().onDown();
     },
     ensureVisibility: function() {
       
