@@ -15,7 +15,7 @@
   "license": "MIT",
   "main": "dist/vue-autocomplete.umd.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --host 127.0.0.1",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "bundle": "vue-cli-service build --target lib --name vue-autocomplete 'src/components/input-autocomplete.vue'"
