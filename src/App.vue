@@ -13,7 +13,7 @@
 
 <script>
 import InputAutocomplete from '@/components/input-autocomplete'
-import SampleData        from '@/assets/sample-data.json'
+import SampleData        from '@/assets/huge-sample-data.json'
 
 import 'normalize.css'
 
