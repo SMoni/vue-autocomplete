@@ -1,19 +1,31 @@
 <template>
   <div id="app">
     <input-autocomplete
-      :Items       ="samples"
-      :value       ="inputSample"
+      :Items       ="normalSamples"
+      :value       ="normalInput"  
       Property     ="name"
       :VisibleItems="8"
-      @input       ="that => this.inputSample = that"
+      @input       ="that => this.normalInput = that"
+      Placeholder  ="Start typing"
     ></input-autocomplete>
-    <span>{{ inputSample.name }}</span>
+    <span>{{ normalInput.name }}</span>
+    <hr>
+    <input-autocomplete
+      :Items       ="hugeSamples"
+      :value       ="hugeInput"  
+      Property     ="name"
+      :VisibleItems="8"
+      @input       ="that => this.hugeInput = that"
+      Placeholder  ="Start typing"
+    ></input-autocomplete>
+    <span>{{ hugeInput.name }}</span>    
   </div>
 </template>
 
 <script>
 import InputAutocomplete from '@/components/input-autocomplete'
-import SampleData        from '@/assets/huge-sample-data.json'
+import SampleData        from '@/assets/sample-data.json'
+import HugeSampleData    from '@/assets/huge-sample-data.json'
 
 import 'normalize.css'
 
@@ -24,8 +36,10 @@ export default {
   },
   data() {
     return {
-      samples: SampleData,
-      inputSample: { name: 'delete me & start typing' }
+      normalSamples: SampleData,
+      normalInput:   { name: '' },
+      hugeSamples:   HugeSampleData,
+      hugeInput:     { name: '' }
     }
   }
 }
@@ -42,23 +56,30 @@ body {
     padding-left: 1rem;
   }
 
-  .input-autocomplete .list-selection {
+  .input-autocomplete {
 
-    box-shadow: 5px 10px 8px #888888;
+    .input {
+      width: 30rem;
+    }
 
-    .item {
-      border:        1px solid transparent;
-      border-bottom: 1px solid #d4d4d4;
-      padding:       .2rem;
+    .list-selection {
 
-      &:hover {
-        background-color: black;
-        color:            white;
-      }
+        box-shadow: 5px 10px 8px #888888;
 
-      &.active {
-        background-color: DodgerBlue; 
-        color:            #ffffff; 
+        .item {
+        border:        1px solid transparent;
+        border-bottom: 1px solid #d4d4d4;
+        padding:       .2rem;
+
+        &:hover {
+            background-color: black;
+            color:            white;
+        }
+
+        &.active {
+            background-color: DodgerBlue; 
+            color:            #ffffff; 
+        }
       }
     }
   }

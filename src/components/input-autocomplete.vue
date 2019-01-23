@@ -9,6 +9,7 @@
       @keydown.tab          ="onEnter()"
       @input                ="onInput($event.target.value)"
       :value                ="inputValue"
+      :placeholder          ="Placeholder"
     >
     <list-selection v-show="isListVisible"
       @selected    ="onSelectedListItem"
@@ -47,6 +48,10 @@ export default {
       validator: function (value) {
         return value >= 1;
       }      
+    },
+    Placeholder: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -55,17 +60,26 @@ export default {
       const filterUpperCase = this.inputValue.toUpperCase();
       const asInclude       = item => item[this.Property].toUpperCase().includes(filterUpperCase);
 
-      return this.Items.filter(asInclude);
+      return this.Items
+        .filter(asInclude)
+        .slice(0, 100);
     },
     isInputNotEmpty: function() {
       return this.inputValue !== '';
     },
+    isListEmpty: function() {
+      return this.filtered.length <= 0;
+    },
     isListNotEmpty: function() {
-      return this.filtered.length > 0;
+      return !this.isListEmpty;
     }
   },
   methods: {
     onDown: function() {
+
+      if(this.isListEmpty) {
+        return;
+      }
 
       if(this.isListVisible) {
         this.$refs.list.onDown();
