@@ -1,7 +1,5 @@
-const createPlaceholderWith = (thisProperty, thisValue) => {
-  return {
-    [thisProperty]: thisValue || thisValue === '' ? thisValue : '-'
-  };
-}    
+const createPlaceholderWith = (thisProperty, thisValue) => ({
+  [thisProperty]: thisValue || thisValue === '' ? thisValue : '-'
+})    
 
 export { createPlaceholderWith };
