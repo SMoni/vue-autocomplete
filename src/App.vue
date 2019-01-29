@@ -64,12 +64,13 @@ body {
 
     .list-selection {
 
-        box-shadow: 5px 10px 8px #888888;
+      box-shadow: 5px 10px 8px #888888;
 
-        .item {
+      .item {
         border:        1px solid transparent;
         border-bottom: 1px solid #d4d4d4;
         padding:       .2rem;
+        height:        1rem;
 
         &:hover {
             background-color: black;
