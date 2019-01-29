@@ -166,7 +166,7 @@ export default {
 
       So make it visible first per data.isListVisible and close it after mounting :/
     */
-    this.closeList();
+    // this.closeList();
 
     document.addEventListener('click', this.closeList);
   },
@@ -176,7 +176,7 @@ export default {
   data() {
     return {
       inputValue: '',
-      isListVisible: true,
+      isListVisible: false,
       styles: {
         autocomplete: {
           'position': 'relative',

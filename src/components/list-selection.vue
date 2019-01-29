@@ -116,7 +116,17 @@ export default {
     }
   },
   mounted() {
-    this.heightOfItemElement = this.currentElement.getBoundingClientRect().height;
+
+    const computedStyle = window.getComputedStyle(this.currentElement)
+
+    const heightOfElement = parseFloat(computedStyle.getPropertyValue('height')             .replace('px', ''));
+    const paddingTop      = parseFloat(computedStyle.getPropertyValue('padding-top')        .replace('px', ''));
+    const paddingBottom   = parseFloat(computedStyle.getPropertyValue('padding-bottom')     .replace('px', ''));
+    const borderTop       = parseFloat(computedStyle.getPropertyValue('border-top-width')   .replace('px', ''));
+    const borderBottom    = parseFloat(computedStyle.getPropertyValue('border-bottom-width').replace('px', ''));
+
+    this.heightOfItemElement =  heightOfElement + paddingTop + paddingBottom + borderTop + borderBottom;
+
     this.setListHeight();
   },
   data() {
