@@ -69,7 +69,7 @@ body {
       .item {
         border:        1px solid transparent;
         border-bottom: 1px solid #d4d4d4;
-        padding:       .2rem;
+        padding:       0.2rem;
         height:        1rem;
 
         &:hover {
@@ -78,8 +78,9 @@ body {
         }
 
         &.active {
-            background-color: DodgerBlue; 
-            color:            #ffffff; 
+            background-color: DodgerBlue;
+            color:            #ffffff;
+            border-bottom: 1px solid DodgerBlue;
         }
       }
     }

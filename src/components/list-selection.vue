@@ -45,6 +45,18 @@ export default {
     },
     numberOfItems: function() {
       return this.Items.length;
+    },
+    heightOfItemElement: function() {
+
+      const computedStyle = window.getComputedStyle(this.currentElement)
+
+      const height        = parseFloat(computedStyle.getPropertyValue('height')             .replace('px', ''));
+      const paddingTop    = parseFloat(computedStyle.getPropertyValue('padding-top')        .replace('px', ''));
+      const paddingBottom = parseFloat(computedStyle.getPropertyValue('padding-bottom')     .replace('px', ''));
+      const borderTop     = parseFloat(computedStyle.getPropertyValue('border-top-width')   .replace('px', ''));
+      const borderBottom  = parseFloat(computedStyle.getPropertyValue('border-bottom-width').replace('px', ''));
+
+      return height + paddingTop + paddingBottom + borderTop + borderBottom;
     }
   },
   watch: {
@@ -108,7 +120,7 @@ export default {
     },
     isCurrent: function(index) {
       return this.currentIndex === index;
-    }    
+    }  
   },
   created() {
     if(this.isListEmpty) {
@@ -116,23 +128,11 @@ export default {
     }
   },
   mounted() {
-
-    const computedStyle = window.getComputedStyle(this.currentElement)
-
-    const heightOfElement = parseFloat(computedStyle.getPropertyValue('height')             .replace('px', ''));
-    const paddingTop      = parseFloat(computedStyle.getPropertyValue('padding-top')        .replace('px', ''));
-    const paddingBottom   = parseFloat(computedStyle.getPropertyValue('padding-bottom')     .replace('px', ''));
-    const borderTop       = parseFloat(computedStyle.getPropertyValue('border-top-width')   .replace('px', ''));
-    const borderBottom    = parseFloat(computedStyle.getPropertyValue('border-bottom-width').replace('px', ''));
-
-    this.heightOfItemElement =  heightOfElement + paddingTop + paddingBottom + borderTop + borderBottom;
-
     this.setListHeight();
   },
   data() {
     return {
-      currentIndex:        0,
-      heightOfItemElement: 0,
+      currentIndex: 0,
       styles: {
         list: {
           'overflow-Y':       'auto',
