@@ -67,20 +67,18 @@ body {
       box-shadow: 5px 10px 8px #888888;
 
       .item {
-        border:        1px solid transparent;
-        border-bottom: 1px solid #d4d4d4;
-        padding:       0.2rem;
-        height:        1rem;
+
+        height: 1.3rem;
+        border: 1px solid transparent;
 
         &:hover {
-            background-color: black;
-            color:            white;
+          background-color: black;
+          color:            white;
         }
 
         &.active {
-            background-color: DodgerBlue;
-            color:            #ffffff;
-            border-bottom: 1px solid DodgerBlue;
+          border-top:    1px dashed gray;
+          border-bottom: 1px dashed gray;
         }
       }
     }

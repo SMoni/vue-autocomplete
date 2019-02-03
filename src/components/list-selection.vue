@@ -47,16 +47,26 @@ export default {
       return this.Items.length;
     },
     heightOfItemElement: function() {
+      
+      const properties = [
+        'height',
+        'padding-top',
+        'padding-bottom',
+        'border-top-width',
+        'border-bottom-width',
+        'margin-top',
+        'margin-bottom'
+      ];
 
-      const computedStyle = window.getComputedStyle(this.currentElement)
+      const computedStyle = window.getComputedStyle(this.currentElement);
+      const getValue      = key => computedStyle.getPropertyValue(key).replace('px', '');
+      const parseToFloat  = value => parseFloat(value);
+      const sumUp         = (previous, current) => previous + current;
 
-      const height        = parseFloat(computedStyle.getPropertyValue('height')             .replace('px', ''));
-      const paddingTop    = parseFloat(computedStyle.getPropertyValue('padding-top')        .replace('px', ''));
-      const paddingBottom = parseFloat(computedStyle.getPropertyValue('padding-bottom')     .replace('px', ''));
-      const borderTop     = parseFloat(computedStyle.getPropertyValue('border-top-width')   .replace('px', ''));
-      const borderBottom  = parseFloat(computedStyle.getPropertyValue('border-bottom-width').replace('px', ''));
-
-      return height + paddingTop + paddingBottom + borderTop + borderBottom;
+      return properties
+        .map(getValue)
+        .map(parseToFloat)
+        .reduce(sumUp);
     }
   },
   watch: {
@@ -99,7 +109,7 @@ export default {
       const listElement    = this.listElement;
 
       const top    = currentElement.offsetTop - listElement.scrollTop;
-      const bottom = currentElement.offsetTop - listElement.scrollTop + currentElement.getBoundingClientRect().height;
+      const bottom = currentElement.offsetTop - listElement.scrollTop + this.heightOfItemElement;
       const height = listElement.getBoundingClientRect().height;
 
       const isTopOutsideView    = top    < 0 || height <= top;
@@ -109,6 +119,18 @@ export default {
         onUp:   () => { if(isTopOutsideView)    currentElement.scrollIntoView(true); },
         onDown: () => { if(isBottomOutsideView) currentElement.scrollIntoView(false); }
       }      
+    },
+    ensureHeightOnElement: function() {
+
+      const computedStyle = window.getComputedStyle(this.currentElement);
+      const getValueOf    = key => computedStyle.getPropertyValue(key);
+      const height        = getValueOf('height');
+      const lineHeight    = getValueOf('line-height');
+
+      // m/
+      if(height === 'auto') {
+        this.currentElement.style.height = lineHeight;
+      }
     },
     onClick: function(index) {
 
@@ -128,6 +150,8 @@ export default {
     }
   },
   mounted() {
+
+    this.ensureHeightOnElement();
     this.setListHeight();
   },
   data() {
