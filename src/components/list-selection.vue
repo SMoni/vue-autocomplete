@@ -101,7 +101,7 @@ export default {
 
       this.currentIndex = this.currentIndex >= this.shownItems ? this.currentIndex - this.shownItems : this.Items.length - 1;
 
-      this.ensureVisibility().onDown();
+      this.ensureVisibility().onUp();
     },
     ensureVisibility: function() {
       
