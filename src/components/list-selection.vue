@@ -160,14 +160,16 @@ export default {
       styles: {
         list: {
           'overflow-Y':       'auto',
+          'overflow-X':       'hidden',
           'background-color': 'white',
-          'position':         'absolute',
+          'position':         'fixed',
           'z-index':          '99',
-          'left':             0,
-          'right':            0,
+          'width':            'max-content'
         },
         item: {
-          'cursor': 'pointer'
+          'cursor':      'pointer',
+          'white-space': 'nowrap',
+          'padding':     '0 3rem 0 .5rem'
         }
       } 
     }

@@ -159,10 +159,12 @@ export default {
     this.inputValue = this.value && this.value[this.Property] ? this.value[this.Property] : ''
   },
   mounted() {
-    document.addEventListener('click', this.closeList);
+    document.addEventListener('scroll', this.closeList);
+    document.addEventListener('click',  this.closeList);
   },
   destroyed() {
-    document.removeEventListener('click', this.closeList);
+    document.removeEventListener('scroll', this.closeList);
+    document.removeEventListener('click',  this.closeList);
   },
   data() {
     return {
@@ -170,8 +172,7 @@ export default {
       isListVisible: false,
       styles: {
         autocomplete: {
-          'position': 'relative',
-          'display':  'inline-block'
+          'display': 'inline-block'
         }
       }
     }
