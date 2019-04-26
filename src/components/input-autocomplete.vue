@@ -55,7 +55,7 @@ export default {
       default: 10,
       validator: function (value) {
         return value >= 1;
-      }      
+      }
     },
     Placeholder: {
       type: String,
@@ -80,6 +80,12 @@ export default {
     },
     isListNotEmpty: function() {
       return !this.isListEmpty;
+    },
+    listElement: function() {
+      return this.$el.querySelector('.list-selection');
+    },
+    inputElement: function() {
+      return this.$el.querySelector('.input');
     }
   },
   methods: {
@@ -106,7 +112,7 @@ export default {
       } else {
         this.openList();
       }
-    },    
+    },
     onUp: function() {
 
       if(this.isListVisible) {
@@ -118,7 +124,7 @@ export default {
       if(this.isListVisible) {
         this.$refs.list.onPageUp();
       }
-    },    
+    },
     onEnter: function() {
 
       if(this.isListVisible && this.isListNotEmpty) {
@@ -140,15 +146,22 @@ export default {
     onSelectedListItem: function(item) {
 
       this.closeList();
-      
+
       this.inputValue = item[this.Property];
-      
+
       this.emitInputWith(item);
     },
     emitInputWith: function(item) {
       this.$emit('input', item);
     },
     openList: function() {
+
+      const top  = this.inputElement.getBoundingClientRect().bottom;
+      const left = this.inputElement.getBoundingClientRect().left;
+
+      this.listElement.style.top  = `${top}px`;
+      this.listElement.style.left = `${left}px`;
+
       this.isListVisible = true;
     },
     closeList: function() {
