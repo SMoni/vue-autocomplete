@@ -156,11 +156,10 @@ export default {
     },
     openList: function() {
 
-      const top  = this.inputElement.getBoundingClientRect().bottom;
-      const left = this.inputElement.getBoundingClientRect().left;
+      const clientRect = this.inputElement.getBoundingClientRect();
 
-      this.listElement.style.top  = `${top}px`;
-      this.listElement.style.left = `${left}px`;
+      this.listElement.style.top  = `${clientRect.bottom}px`;
+      this.listElement.style.left = `${clientRect.left}px`;
 
       this.isListVisible = true;
     },
