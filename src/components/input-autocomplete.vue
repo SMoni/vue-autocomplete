@@ -156,10 +156,20 @@ export default {
     },
     openList: function() {
 
-      const clientRect = this.inputElement.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const listHeight   = parseFloat(this.listElement.style.height.replace('px', ''));
 
-      this.listElement.style.top  = `${clientRect.bottom}px`;
-      this.listElement.style.left = `${clientRect.left}px`;
+      const clientRect   = this.inputElement.getBoundingClientRect();
+
+      const top = clientRect.bottom + listHeight < windowHeight
+        ? clientRect.bottom
+        : clientRect.top - listHeight
+      ;
+
+      const left = clientRect.left;
+
+      this.listElement.style.top  = `${top}px`;
+      this.listElement.style.left = `${left}px`;
 
       this.isListVisible = true;
     },
@@ -168,7 +178,7 @@ export default {
     }
   },
   created() {
-    this.inputValue = this.value && this.value[this.Property] ? this.value[this.Property] : ''
+    this.inputValue = this.value && this.value[this.Property] ? this.value[this.Property] : '';
   },
   mounted() {
     document.addEventListener('scroll', this.closeList);

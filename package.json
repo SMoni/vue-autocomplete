@@ -1,6 +1,6 @@
 {
   "name": "@stm0n/vue-autocomplete",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SMoni/vue-autocomplete.git"
@@ -21,7 +21,8 @@
     "bundle": "vue-cli-service build --target lib --name vue-autocomplete src/components/input-autocomplete.vue"
   },
   "files": [
-    "dist"
+    "dist/*.js",
+    "dist/*.js.map"
   ],
   "dependencies": {
     "vue": "^2.6.10"

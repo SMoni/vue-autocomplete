@@ -38,6 +38,15 @@
       <p>Netus et malesuada fames ac turpis egestas integer eget. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit. Pharetra diam sit amet nisl suscipit adipiscing bibendum est. Viverra vitae congue eu consequat ac. In fermentum posuere urna nec tincidunt. Natoque penatibus et magnis dis parturient montes nascetur ridiculus. At elementum eu facilisis sed odio morbi. Sed turpis tincidunt id aliquet risus. Vitae et leo duis ut diam quam nulla. Nulla facilisi etiam dignissim diam quis enim. Purus non enim praesent elementum facilisis leo vel fringilla. Diam sit amet nisl suscipit adipiscing. A arcu cursus vitae congue mauris rhoncus aenean. Sed augue lacus viverra vitae congue. Ultrices vitae auctor eu augue ut. Ipsum a arcu cursus vitae congue mauris rhoncus aenean.</p>
     </div>
     <hr>
+    <input-autocomplete
+      :Items       ="bottomSamples"
+      :value       ="bottomInput"
+      Property     ="name"
+      :VisibleItems="8"
+      @input       ="that => this.bottomInput = that"
+      Placeholder  ="Start typing"
+    ></input-autocomplete>
+    <span>{{ bottomInput.name }}</span>
   </div>
 </template>
 
@@ -58,7 +67,9 @@ export default {
       normalSamples: SampleData,
       normalInput:   { name: '' },
       hugeSamples:   HugeSampleData,
-      hugeInput:     { name: '' }
+      hugeInput:     { name: '' },
+      bottomSamples: SampleData,
+      bottomInput:   { name: '' },
     }
   }
 }
