@@ -1,6 +1,6 @@
 <template>
   <div class="list-selection" :style="styles.list">
-    <div v-for="(item, index) in Items" :key="index"
+    <div v-for="(item, index) in items" :key="index"
       @click="onClick(index)"
       :class="[{ active: isCurrent(index) }, 'item', `item-${index}` ]"
       :style="styles.item"
@@ -14,7 +14,7 @@ import { createPlaceholderWith } from '@/components/tools'
 export default {
   name: 'list-selection',
   props: {
-    Items: {
+    items: {
       type: Array,
       default: () => []
     },
@@ -41,10 +41,10 @@ export default {
       return this.VisibleItems < this.numberOfItems ? this.VisibleItems : this.numberOfItems;
     },
     isListEmpty: function() {
-      return this.Items.length <= 0;
+      return this.numberOfItems <= 0;
     },
     numberOfItems: function() {
-      return this.Items.length;
+      return this.items.length;
     },
     heightOfItemElement: function() {
       
@@ -70,7 +70,7 @@ export default {
     }
   },
   watch: {
-    Items: function() {
+    items: function() {
       this.currentIndex = 0;
       this.setListHeight();
     }
@@ -81,25 +81,25 @@ export default {
     },
     onDown: function() {
 
-      this.currentIndex = (this.currentIndex + 1) % this.Items.length;
+      this.currentIndex = (this.currentIndex + 1) % this.items.length;
 
       this.ensureVisibility().onDown();
     },
     onPageDown: function() {
 
-      this.currentIndex = (this.currentIndex + this.shownItems) % this.Items.length;
+      this.currentIndex = (this.currentIndex + this.shownItems) % this.items.length;
 
       this.ensureVisibility().onDown();
     },
     onUp: function() {
 
-      this.currentIndex = this.currentIndex >= 1 ? this.currentIndex - 1 : this.Items.length - 1;
+      this.currentIndex = this.currentIndex >= 1 ? this.currentIndex - 1 : this.items.length - 1;
 
       this.ensureVisibility().onUp();
     },
     onPageUp: function() {
 
-      this.currentIndex = this.currentIndex >= this.shownItems ? this.currentIndex - this.shownItems : this.Items.length - 1;
+      this.currentIndex = this.currentIndex >= this.shownItems ? this.currentIndex - this.shownItems : this.items.length - 1;
 
       this.ensureVisibility().onUp();
     },
@@ -138,7 +138,7 @@ export default {
         this.currentIndex = index;
       }
 
-      this.$emit('selected', this.Items[this.currentIndex]);
+      this.$emit('selected', this.items[this.currentIndex]);
     },
     isCurrent: function(index) {
       return this.currentIndex === index;
@@ -146,7 +146,7 @@ export default {
   },
   created() {
     if(this.isListEmpty) {
-      this.Items.push(createPlaceholderWith(this.Property));
+      this.items.push(createPlaceholderWith(this.Property));
     }
   },
   mounted() {
