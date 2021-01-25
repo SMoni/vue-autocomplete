@@ -16,8 +16,8 @@
     <list-selection v-show="isListVisible"
       @selected    ="onSelectedListItem"
       :items       ="filtered"
-      :Property    ="Property"
-      :VisibleItems="VisibleItems"
+      :property    ="property"
+      :visibleItems="visibleItems"
       ref          ="list"
     ></list-selection>
   </div>
@@ -46,11 +46,11 @@ export default {
       type: Array,
       default: () => []
     },
-    Property: {
+    property: {
       type: String,
       required: true
     },
-    VisibleItems: {
+    visibleItems: {
       type: Number,
       default: 10,
       validator: function (value) {
@@ -66,7 +66,7 @@ export default {
     filtered: function() {
 
       const filterUpperCase = this.inputValue.toUpperCase();
-      const asInclude       = item => item[this.Property].toUpperCase().includes(filterUpperCase);
+      const asInclude       = item => item[this.property].toUpperCase().includes(filterUpperCase);
 
       return this.items
         .filter(asInclude)
@@ -135,7 +135,7 @@ export default {
 
       this.inputValue = value;
 
-      this.emitInputWith(createPlaceholderWith(this.Property, this.inputValue));
+      this.emitInputWith(createPlaceholderWith(this.property, this.inputValue));
 
       if(this.isInputNotEmpty && this.isListNotEmpty) {
         this.openList();
@@ -147,7 +147,7 @@ export default {
 
       this.closeList();
 
-      this.inputValue = item[this.Property];
+      this.inputValue = item[this.property];
 
       this.emitInputWith(item);
     },
@@ -178,7 +178,7 @@ export default {
     }
   },
   created() {
-    this.inputValue = this.value && this.value[this.Property] ? this.value[this.Property] : '';
+    this.inputValue = this.value && this.value[this.property] ? this.value[this.property] : '';
   },
   mounted() {
     document.addEventListener('scroll', this.closeList);

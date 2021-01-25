@@ -3,8 +3,8 @@
     <input-autocomplete
       :items       ="normalSamples"
       :value       ="normalInput"
-      Property     ="name"
-      :VisibleItems="8"
+      property     ="name"
+      :visibleItems="8"
       @input       ="that => this.normalInput = that"
       Placeholder  ="Start typing"
     ></input-autocomplete>
@@ -13,8 +13,8 @@
     <input-autocomplete
       :items       ="hugeSamples"
       :value       ="hugeInput"
-      Property     ="name"
-      :VisibleItems="20"
+      property     ="name"
+      :visibleItems="20"
       @input       ="that => this.hugeInput = that"
       Placeholder  ="Start typing"
     ></input-autocomplete>
@@ -39,10 +39,10 @@
     </div>
     <hr>
     <input-autocomplete
-      :Items       ="bottomSamples"
+      :items       ="bottomSamples"
       :value       ="bottomInput"
-      Property     ="name"
-      :VisibleItems="8"
+      property     ="name"
+      :visibleItems="8"
       @input       ="that => this.bottomInput = that"
       Placeholder  ="Start typing"
     ></input-autocomplete>

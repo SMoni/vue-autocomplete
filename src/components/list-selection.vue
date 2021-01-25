@@ -4,7 +4,7 @@
       @click="onClick(index)"
       :class="[{ active: isCurrent(index) }, 'item', `item-${index}` ]"
       :style="styles.item"
-    >{{ item[Property] }}</div>
+    >{{ item[property] }}</div>
   </div>
 </template>
 
@@ -18,11 +18,11 @@ export default {
       type: Array,
       default: () => []
     },
-    Property: {
+    property: {
       type: String,
       required: true
     },
-    VisibleItems: {
+    visibleItems: {
       type: Number,
       default: 10,
       validator: function (value) {
@@ -38,7 +38,7 @@ export default {
       return this.$el.querySelector(`.item-${this.currentIndex}`);
     },
     shownItems: function() {
-      return this.VisibleItems < this.numberOfItems ? this.VisibleItems : this.numberOfItems;
+      return this.visibleItems < this.numberOfItems ? this.visibleItems : this.numberOfItems;
     },
     isListEmpty: function() {
       return this.numberOfItems <= 0;
@@ -146,7 +146,7 @@ export default {
   },
   created() {
     if(this.isListEmpty) {
-      this.items.push(createPlaceholderWith(this.Property));
+      this.items.push(createPlaceholderWith(this.property));
     }
   },
   mounted() {
