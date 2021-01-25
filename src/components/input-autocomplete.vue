@@ -1,5 +1,6 @@
 <template>
   <div class="input-autocomplete" :style="styles.autocomplete">
+    {{ allowTagging }}
     <input class="input"
       @focus                    ="$event.target.select()"
       @keydown.down.prevent     ="onDown()"
@@ -10,6 +11,7 @@
       @keydown.esc.prevent      ="closeList()"
       @keydown.tab              ="onEnter()"
       @input                    ="onInput($event.target.value)"
+      @blur                     ="onBlur()"
       :value                    ="inputValue"
       :placeholder              ="placeholder"
     >
@@ -60,6 +62,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    allowTagging: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -72,8 +78,11 @@ export default {
         .filter(asInclude)
         .slice(0, 100);
     },
+    isInputEmpty: function() {
+      return this.inputValue === '';
+    },
     isInputNotEmpty: function() {
-      return this.inputValue !== '';
+      return !this.isInputEmpty;
     },
     isListEmpty: function() {
       return this.filtered.length <= 0;
@@ -135,7 +144,9 @@ export default {
 
       this.inputValue = value;
 
-      this.emitInputWith(createPlaceholderWith(this.property, this.inputValue));
+      if(this.isInputEmpty || this.allowTagging) {
+        this.emitInputWith(createPlaceholderWith(this.property, this.inputValue));
+      }
 
       if(this.isInputNotEmpty && this.isListNotEmpty) {
         this.openList();
@@ -175,6 +186,12 @@ export default {
     },
     closeList: function() {
       this.isListVisible = false;
+    },
+    onBlur: function() {
+      if(!this.allowTagging && this.isListEmpty) {
+        this.inputValue = '';
+        this.emitInputWith(createPlaceholderWith(this.property, ''));
+      }      
     }
   },
   created() {

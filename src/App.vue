@@ -5,6 +5,7 @@
       :value       ="normalInput"
       property     ="name"
       :visibleItems="8"
+      allowTagging
       @input       ="that => this.normalInput = that"
       placeholder  ="Start typing"
     ></input-autocomplete>
