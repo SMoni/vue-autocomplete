@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <input-autocomplete
-      :Items       ="normalSamples"
+      :items       ="normalSamples"
       :value       ="normalInput"
       Property     ="name"
       :VisibleItems="8"
@@ -11,7 +11,7 @@
     <span>{{ normalInput.name }}</span>
     <hr>
     <input-autocomplete
-      :Items       ="hugeSamples"
+      :items       ="hugeSamples"
       :value       ="hugeInput"
       Property     ="name"
       :VisibleItems="20"

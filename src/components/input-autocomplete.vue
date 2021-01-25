@@ -42,7 +42,7 @@ export default {
     value: {
       type: Object
     },
-    Items: {
+    items: {
       type: Array,
       default: () => []
     },
@@ -68,7 +68,7 @@ export default {
       const filterUpperCase = this.inputValue.toUpperCase();
       const asInclude       = item => item[this.Property].toUpperCase().includes(filterUpperCase);
 
-      return this.Items
+      return this.items
         .filter(asInclude)
         .slice(0, 100);
     },
