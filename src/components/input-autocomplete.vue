@@ -11,7 +11,7 @@
       @keydown.tab              ="onEnter()"
       @input                    ="onInput($event.target.value)"
       :value                    ="inputValue"
-      :placeholder              ="Placeholder"
+      :placeholder              ="placeholder"
     >
     <list-selection v-show="isListVisible"
       @selected    ="onSelectedListItem"
@@ -57,7 +57,7 @@ export default {
         return value >= 1;
       }
     },
-    Placeholder: {
+    placeholder: {
       type: String,
       default: ''
     }

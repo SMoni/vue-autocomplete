@@ -6,7 +6,7 @@
       property     ="name"
       :visibleItems="8"
       @input       ="that => this.normalInput = that"
-      Placeholder  ="Start typing"
+      placeholder  ="Start typing"
     ></input-autocomplete>
     <span>{{ normalInput.name }}</span>
     <hr>
@@ -16,7 +16,7 @@
       property     ="name"
       :visibleItems="20"
       @input       ="that => this.hugeInput = that"
-      Placeholder  ="Start typing"
+      placeholder  ="Start typing"
     ></input-autocomplete>
     <span>{{ hugeInput.name }}</span>
     <hr>
@@ -44,7 +44,7 @@
       property     ="name"
       :visibleItems="8"
       @input       ="that => this.bottomInput = that"
-      Placeholder  ="Start typing"
+      placeholder  ="Start typing"
     ></input-autocomplete>
     <span>{{ bottomInput.name }}</span>
   </div>
