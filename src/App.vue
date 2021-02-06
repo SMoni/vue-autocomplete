@@ -72,6 +72,11 @@ export default {
   components: {
     InputAutocomplete
   },
+  methods: {
+    validateInputOn(that) {
+      console.log(that.isInItems);
+    }
+  },
   data() {
     return {
       normal: {
@@ -119,6 +124,7 @@ body {
 
     .list-selection {
 
+      min-width: 20rem;
       box-shadow: 5px 10px 8px #888888;
 
       .item {

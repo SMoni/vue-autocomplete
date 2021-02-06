@@ -10,7 +10,8 @@
       @keydown.esc.prevent      ="closeList()"
       @keydown.tab              ="onEnter()"
       @input                    ="onInput($event.target.value)"
-      :value                    ="inputValue"
+      @blur                     ="$emit('blur')"
+      :value                    ="taggedItem[property]"
       :placeholder              ="placeholder"
     >
     <list-selection v-show="isListVisible"
@@ -65,12 +66,12 @@ export default {
   computed: {
     filtered: function() {
 
-      const filterUpperCase = this.inputValue.toUpperCase();
+      const filterUpperCase = this.taggedItem[this.property].toUpperCase();
       const asInclude       = item => item[this.property].toUpperCase().includes(filterUpperCase);
 
       return this.items
         .filter(asInclude)
-        .slice(0, 100);
+        .slice(0, this.visibleItems);
     },
     isInputEmpty: function() {
       return this.inputValue === '';
@@ -86,10 +87,10 @@ export default {
     },
     isInputInItems: function() {
 
-      const filterUpperCase = this.inputValue.toUpperCase();
+      const filterUpperCase = this.taggedItem[this.property].toUpperCase();
       const asEqual         = item => item[this.property].toUpperCase() === filterUpperCase;
 
-      return this.items.findIndex(asEqual) >= 0;
+      return this.filtered.findIndex(asEqual) >= 0;
     },
     listElement: function() {
       return this.$el.querySelector('.list-selection');
@@ -158,7 +159,7 @@ export default {
 
       this.closeList();
 
-      this.inputValue = item[this.property];
+      this.taggedItem[this.property] = item[this.property];
 
       this.emitInputWith(item);
     },
@@ -191,8 +192,11 @@ export default {
     }
   },
   created() {
-    this.inputValue = this.value && this.value[this.property] ? this.value[this.property] : '';
-    this.taggedItem = createPlaceholderWith(this.property, '');
+    const current = this.value && this.value[this.property] 
+      ? this.value[this.property] 
+      : '';
+    
+    this.taggedItem = createPlaceholderWith(this.property, current);
   },
   mounted() {
     document.addEventListener('scroll', this.closeList);
@@ -204,7 +208,6 @@ export default {
   },
   data() {
     return {
-      inputValue: '',
       taggedItem: undefined,
       isListVisible: false,
       styles: {
