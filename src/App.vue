@@ -1,28 +1,36 @@
 <template>
   <div id="app">
-    <input-autocomplete
-      :items       ="normal.samples"
-      :value       ="normal.input"
-      property     ="name"
-      :visibleItems="8"
-      @input       ="that => this.normal.input = that"
-      placeholder  ="Start typing"
-      @isInList    ="that => this.normal.isInList = that"
-      @isEmpty     ="that => this.normal.isEmpty = that"
-    ></input-autocomplete>
-    <span>{{ normal.input.name }}</span>
-    <span>{{ normal.isInList }}</span>
-    <span>{{ normal.isEmpty }}</span>
+    <div class="line">
+      <input-autocomplete
+        :items       ="normal.samples"
+        :value       ="normal.input"
+        property     ="name"
+        :visibleItems="8"
+        @input       ="that => this.normal.input = that"
+        placeholder  ="Start typing"
+        @isInList    ="that => this.normal.isInList = that"
+        @isEmpty     ="that => this.normal.isEmpty = that"
+      ></input-autocomplete>
+      <div>{{ normal.isInList }}</div>
+      <div>{{ normal.isEmpty }}</div>
+      <div>{{ normal.input.name }}</div>
+   </div>
     <hr>
-    <input-autocomplete
-      :items       ="hugeSamples"
-      :value       ="hugeInput"
-      property     ="name"
-      :visibleItems="20"
-      @input       ="that => this.hugeInput = that"
-      placeholder  ="Start typing"
-    ></input-autocomplete>
-    <span>{{ hugeInput.name }}</span>
+    <div class="line">    
+      <input-autocomplete
+        :items       ="huge.samples"
+        :value       ="huge.input"
+        property     ="name"
+        :visibleItems="20"
+        placeholder  ="Start typing"
+        @input       ="that => this.huge.input = that"
+        @isInList    ="that => this.huge.isInList = that"
+        @isEmpty     ="that => this.huge.isEmpty = that"        
+      ></input-autocomplete>
+      <div>{{ huge.isInList }}</div>
+      <div>{{ huge.isEmpty }}</div>
+      <div>{{ huge.input.name }}</div>
+    </div>
     <hr>
     <div class="text">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eget sit amet tellus cras adipiscing enim. Tempus imperdiet nulla malesuada pellentesque elit eget. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus et. Odio morbi quis commodo odio. Suspendisse ultrices gravida dictum fusce. Velit sed ullamcorper morbi tincidunt ornare massa. Sit amet mauris commodo quis imperdiet massa tincidunt nunc pulvinar. A cras semper auctor neque. Varius quam quisque id diam vel quam elementum pulvinar etiam. Adipiscing bibendum est ultricies integer. Et tortor at risus viverra adipiscing. Magnis dis parturient montes nascetur ridiculus mus mauris vitae. Purus sit amet luctus venenatis lectus. Dignissim diam quis enim lobortis scelerisque fermentum dui.</p>
@@ -74,8 +82,12 @@ export default {
         isInList: false,
         isEmpty:  true
       },
-      hugeSamples:      HugeSampleData,
-      hugeInput:        { name: '' },
+      huge: {
+        samples:  HugeSampleData,
+        input:    { name: '' },
+        isInList: false,
+        isEmpty:  true        
+      },
       bottomSamples:    SampleData,
       bottomInput:      { name: '' },
     }
@@ -90,15 +102,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   padding:     2rem;
 
-  span {
-    padding-left: 1rem;
+  .line {
+    display: flex;
+    
+    * {
+      min-width: 5rem;
+      padding-left: 0.5rem;
+    }
   }
+
 
   .input-autocomplete {
 
     .input {
-      width: 30rem;
+      width: 20rem;
     }
+
 
     .list-selection {
 

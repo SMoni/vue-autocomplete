@@ -155,7 +155,7 @@ export default {
       this.emitInputWith(item);
     },
     emitInputWith: function(item) {
-      this.$emit('input', item);
+      this.$emit('input',    item);
       this.$emit('isInList', this.isListNotEmpty && this.isInputNotEmpty);
       this.$emit('isEmpty',  this.isInputEmpty);
     },
