@@ -84,6 +84,13 @@ export default {
     isListNotEmpty: function() {
       return !this.isListEmpty;
     },
+    isInputInItems: function() {
+
+      const filterUpperCase = this.inputValue.toUpperCase();
+      const asEqual         = item => item[this.property].toUpperCase() === filterUpperCase;
+
+      return this.items.findIndex(asEqual) >= 0;
+    },
     listElement: function() {
       return this.$el.querySelector('.list-selection');
     },
@@ -155,9 +162,9 @@ export default {
       this.emitInputWith(item);
     },
     emitInputWith: function(item) {
-      this.$emit('input',    item);
-      this.$emit('isInList', this.isListNotEmpty && this.isInputNotEmpty);
-      this.$emit('isEmpty',  this.isInputEmpty);
+      this.$emit('input',          item);
+      this.$emit('isInputInItems', this.isInputInItems);
+      this.$emit('isInputEmpty',   this.isInputEmpty);
     },
     openList: function() {
 

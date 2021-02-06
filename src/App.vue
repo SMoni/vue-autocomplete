@@ -2,33 +2,31 @@
   <div id="app">
     <div class="line">
       <input-autocomplete
-        :items       ="normal.samples"
-        :value       ="normal.input"
-        property     ="name"
-        :visibleItems="8"
-        @input       ="that => this.normal.input = that"
-        placeholder  ="Start typing"
-        @isInList    ="that => this.normal.isInList = that"
-        @isEmpty     ="that => this.normal.isEmpty = that"
+        :items          ="normal.items"
+        :value          ="normal.input"
+        property        ="name"
+        :visibleItems   ="8"
+        placeholder     ="Start typing"
+        @input          ="that => this.normal.input = that"
+        @isInputInItems ="that => this.normal.isInItems = that"
+        @isInputEmpty   ="that => this.normal.isEmpty = that"
       ></input-autocomplete>
-      <div>{{ normal.isInList }}</div>
-      <div>{{ normal.isEmpty }}</div>
+      <div><span v-show="!normal.isInItems">Unkown</span><span v-show="normal.isInItems">Ok</span></div>
       <div>{{ normal.input.name }}</div>
    </div>
     <hr>
     <div class="line">    
       <input-autocomplete
-        :items       ="huge.samples"
-        :value       ="huge.input"
-        property     ="name"
-        :visibleItems="20"
-        placeholder  ="Start typing"
-        @input       ="that => this.huge.input = that"
-        @isInList    ="that => this.huge.isInList = that"
-        @isEmpty     ="that => this.huge.isEmpty = that"        
+        :items          ="huge.items"
+        :value          ="huge.input"
+        property        ="name"
+        :visibleItems   ="20"
+        placeholder     ="Start typing"
+        @input          ="that => this.huge.input = that"
+        @isInputInItems ="that => this.huge.isInItems = that"
+        @isEmpty        ="that => this.huge.isEmpty = that"        
       ></input-autocomplete>
-      <div>{{ huge.isInList }}</div>
-      <div>{{ huge.isEmpty }}</div>
+      <div><span v-show="!huge.isInItems">Unkown</span><span v-show="huge.isInItems">Ok</span></div>
       <div>{{ huge.input.name }}</div>
     </div>
     <hr>
@@ -77,16 +75,16 @@ export default {
   data() {
     return {
       normal: {
-        samples:  SampleData,
-        input:    { name: '' },
-        isInList: false,
-        isEmpty:  true
+        items:     SampleData,
+        input:     { name: '' },
+        isInItems: false,
+        isEmpty:   true
       },
       huge: {
-        samples:  HugeSampleData,
-        input:    { name: '' },
-        isInList: false,
-        isEmpty:  true        
+        items:     HugeSampleData,
+        input:     { name: '' },
+        isInItems: false,
+        isEmpty:   true        
       },
       bottomSamples:    SampleData,
       bottomInput:      { name: '' },
