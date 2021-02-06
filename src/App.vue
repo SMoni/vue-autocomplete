@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <input-autocomplete
-      :items       ="normalSamples"
-      :value       ="normalInput"
+      :items       ="normal.samples"
+      :value       ="normal.input"
       property     ="name"
       :visibleItems="8"
-      allowTagging
-      @input       ="that => this.normalInput = that"
+      @input       ="that => this.normal.input = that"
       placeholder  ="Start typing"
+      @isInList    ="that => this.normal.isInList = that"
+      @isEmpty     ="that => this.normal.isEmpty = that"
     ></input-autocomplete>
-    <span>{{ normalInput.name }}</span>
+    <span>{{ normal.input.name }}</span>
+    <span>{{ normal.isInList }}</span>
+    <span>{{ normal.isEmpty }}</span>
     <hr>
     <input-autocomplete
       :items       ="hugeSamples"
@@ -65,12 +68,16 @@ export default {
   },
   data() {
     return {
-      normalSamples: SampleData,
-      normalInput:   { name: '' },
-      hugeSamples:   HugeSampleData,
-      hugeInput:     { name: '' },
-      bottomSamples: SampleData,
-      bottomInput:   { name: '' },
+      normal: {
+        samples:  SampleData,
+        input:    { name: '' },
+        isInList: false,
+        isEmpty:  true
+      },
+      hugeSamples:      HugeSampleData,
+      hugeInput:        { name: '' },
+      bottomSamples:    SampleData,
+      bottomInput:      { name: '' },
     }
   }
 }
