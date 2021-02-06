@@ -2,6 +2,7 @@
   <div id="app">
     <div class="line">
       <input-autocomplete
+        :class          ="{ isInvalid: !(normal.isInItems || normal.isEmpty) }"
         :items          ="normal.items"
         :value          ="normal.input"
         property        ="name"
@@ -11,7 +12,7 @@
         @isInputInItems ="that => this.normal.isInItems = that"
         @isInputEmpty   ="that => this.normal.isEmpty = that"
       ></input-autocomplete>
-      <div><span v-show="!normal.isInItems">Unkown</span><span v-show="normal.isInItems">Ok</span></div>
+      <div><span v-show="!normal.isInItems">Invalid</span><span v-show="normal.isInItems">Ok</span></div>
       <div>{{ normal.input.name }}</div>
    </div>
     <hr>
@@ -72,11 +73,6 @@ export default {
   components: {
     InputAutocomplete
   },
-  methods: {
-    validateInputOn(that) {
-      console.log(that.isInItems);
-    }
-  },
   data() {
     return {
       normal: {
@@ -116,6 +112,12 @@ body {
 
 
   .input-autocomplete {
+
+    &.isInvalid {
+      .input {
+        background-color: lightpink;
+      }
+    }
 
     .input {
       width: 20rem;

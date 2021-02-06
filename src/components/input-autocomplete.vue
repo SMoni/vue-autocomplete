@@ -74,7 +74,7 @@ export default {
         .slice(0, this.visibleItems);
     },
     isInputEmpty: function() {
-      return this.inputValue === '';
+      return this.taggedItem[this.property] === '';
     },
     isInputNotEmpty: function() {
       return !this.isInputEmpty;
@@ -144,7 +144,6 @@ export default {
     },
     onInput: function(value) {
 
-      this.inputValue = value;
       this.taggedItem[this.property] = value;
 
       this.emitInputWith(this.taggedItem);
