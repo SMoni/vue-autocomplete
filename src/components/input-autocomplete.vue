@@ -144,8 +144,9 @@ export default {
     onInput: function(value) {
 
       this.inputValue = value;
+      this.taggedItem[this.property] = value;
 
-      this.emitInputWith(createPlaceholderWith(this.property, this.inputValue));
+      this.emitInputWith(this.taggedItem);
 
       if(this.isInputNotEmpty && this.isListNotEmpty) {
         this.openList();
@@ -191,6 +192,7 @@ export default {
   },
   created() {
     this.inputValue = this.value && this.value[this.property] ? this.value[this.property] : '';
+    this.taggedItem = createPlaceholderWith(this.property, '');
   },
   mounted() {
     document.addEventListener('scroll', this.closeList);
@@ -203,6 +205,7 @@ export default {
   data() {
     return {
       inputValue: '',
+      taggedItem: undefined,
       isListVisible: false,
       styles: {
         autocomplete: {
