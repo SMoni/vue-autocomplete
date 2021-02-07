@@ -2,7 +2,7 @@
   <div id="app">
     <div class="line">
       <input-autocomplete
-        :class          ="{ isInvalid: !(normal.isInItems || normal.isEmpty) }"
+        :class          ="{ isInvalid: !(normal.isInItems || normal.isEmpty), isOk: normal.isInItems }"
         :items          ="normal.items"
         :value          ="normal.input"
         property        ="name"
@@ -12,7 +12,7 @@
         @isInputInItems ="that => this.normal.isInItems = that"
         @isInputEmpty   ="that => this.normal.isEmpty = that"
       ></input-autocomplete>
-      <div><span v-show="!normal.isInItems">Invalid</span><span v-show="normal.isInItems">Ok</span></div>
+      <div class="info"><span class="invalid" v-show="!(normal.isInItems || normal.isEmpty)">Invalid</span><span class="ok" v-show="normal.isInItems">Ok</span></div>
       <div>{{ normal.input.name }}</div>
    </div>
     <hr>
@@ -110,19 +110,54 @@ body {
     }
   }
 
+  .info {
+
+    width: 4rem;
+    font-size: smaller;
+    margin-left: -6rem;
+    margin-top: 4px;
+    text-align: right;
+    margin-right: 3rem;
+
+    .invalid {
+      color: red;
+      padding: .1rem .3rem;
+      background-color: white;
+    }
+
+    .ok {
+      background-color: white;
+      color: green;
+      padding: .1rem .3rem;
+    }
+  }
 
   .input-autocomplete {
 
-    &.isInvalid {
-      .input {
-        background-color: lightpink;
+    .input {
+      width: 20rem;
+      outline: none;
+      border: 1px solid transparent;
+      border-bottom: 1px solid lightgrey;
+      box-sizing: border-box;
+      padding: .4rem;
+
+      &:focus {
+        border-bottom: 1px solid black;
       }
     }
 
-    .input {
-      width: 20rem;
+    &.isInvalid {
+      .input {
+        border-bottom: 1px solid red;
+      }
     }
 
+    &.isOk {
+      .input {
+        border-bottom: 1px solid green;
+      }
+    }
 
     .list-selection {
 
