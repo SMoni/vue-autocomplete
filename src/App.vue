@@ -12,7 +12,9 @@
         @isInputInItems ="that => this.normal.isInItems = that"
         @isInputEmpty   ="that => this.normal.isEmpty = that"
       ></input-autocomplete>
-      <div class="info"><span class="invalid" v-show="!(normal.isInItems || normal.isEmpty)">Invalid</span><span class="ok" v-show="normal.isInItems">Ok</span></div>
+      <div class="info">
+        <span class="invalid" v-show="!(normal.isInItems || normal.isEmpty)">Invalid</span>
+        <span class="ok"      v-show="normal.isInItems">Ok</span></div>
       <div>{{ normal.input.name }}</div>
    </div>
     <hr>
